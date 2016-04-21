@@ -1,0 +1,31 @@
+.nav-header {
+  background-color: $brand-primary;
+  text-align: right;
+  li {
+    display: inline-block;
+
+    a {
+      color: rgba($white, 0.8);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 10px 5px;
+      text-transform: uppercase;
+      &:after {
+        content: "|";
+        padding-left: 10px;
+      }
+
+      &:hover, &:visited, &:active, &:focus {
+        background-color: transparent;
+        color: rgba($white, 1);
+        font-weight: 600;
+      }
+
+    }
+  }
+}
+.navbar-default {
+  border-bottom: solid 3px $brand-hightlight;
+  li {
+  }
+}

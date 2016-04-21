@@ -24,10 +24,20 @@ function setup() {
   // http://codex.wordpress.org/Function_Reference/add_theme_support#Title_Tag
   add_theme_support('title-tag');
 
+  // Logo
+  add_theme_support( 'custom-logo', array(
+      'height'      => 60,
+      'width'       => 440,
+      'flex-height' => true,
+  ) );
+
   // Register wp_nav_menu() menus
   // http://codex.wordpress.org/Function_Reference/register_nav_menus
   register_nav_menus([
-    'primary_navigation' => __('Primary Navigation', 'sage')
+    'header_navigation' => __('Header Navigation', 'sage'),
+    'primary_navigation' => __('Primary Navigation', 'sage'),
+    'footer_navigation' => __('Footer Navigation', 'sage'),
+
   ]);
 
   // Enable post thumbnails
