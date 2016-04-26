@@ -1,0 +1,22 @@
+footer {
+  background-color: $brand-light;
+  color: $white;
+  ul {
+    list-style: none;
+    li {
+      display: inline-block;
+      padding: 10px 2.5px;
+      &:after {
+        content: '|';
+        padding-left: 5px;
+      }
+      a {
+        color: $white;
+
+      }
+    }
+  }
+  .widget_text {
+    padding: 0 0 15px 0;
+  }
+}

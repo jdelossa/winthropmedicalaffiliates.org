@@ -1,20 +1,19 @@
-<header class="banner">
-  <nav class="nav-header">
-    <div class="container">
-      <?php
-      if (has_nav_menu('header_navigation')) :
-        wp_nav_menu(['theme_location' => 'header_navigation', 'menu_class' => 'nav']);
-      endif;
-      ?>
+<header class="banner navbar navbar-default navbar-static-top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only"><?= __('Toggle navigation', 'sage'); ?></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="<?= esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a>
     </div>
-  </nav>
 
-  <div class="container navbar navbar-default">
-    <a class="brand" href="<?= esc_url(home_url('/')); ?>"><?php get_header_image(); ?></a>
-    <nav class="nav-primary">
+    <nav class="collapse navbar-collapse" role="navigation">
       <?php
       if (has_nav_menu('primary_navigation')) :
-        wp_nav_menu(['theme_location' => 'primary_navigation', 'menu_class' => 'nav']);
+        wp_nav_menu(['theme_location' => 'primary_navigation', 'walker' => new wp_bootstrap_navwalker(), 'menu_class' => 'nav navbar-nav']);
       endif;
       ?>
     </nav>
