@@ -2,7 +2,7 @@
   "dependencies": {
     "main.js": {
       "files": [
-        "asset/main.js"
+        "asset/main.js",
       ],
       "main": true
     },
@@ -15,6 +15,11 @@
     "customizer.js": {
       "files": [
         "scripts/customizer.js"
+      ]
+    },
+    "scripts.js": {
+      "files": [
+        "scripts/scripts.js"
       ]
     },
     "jquery.js": {

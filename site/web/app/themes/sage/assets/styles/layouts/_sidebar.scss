@@ -1,0 +1,25 @@
+.sidebar {
+  background-color: $brand-dark;
+  height: 100vh;
+  h1, h2, h3, h4, h5, ul, p, a {
+    color: $white;
+  }
+
+  .recent-posts-2 {
+    h3{
+      font-size: 20px;
+      text-transform: uppercase;
+      &:before {
+        content: '\f03a';
+        border: solid 1px $white;
+        border-radius: 100%;
+        font-family: FontAwesome;
+        font-size: 12px;
+        padding: 8px;
+        position: relative;
+        bottom: 3px;
+        margin-right: 5px;
+      }
+    }
+  }
+}

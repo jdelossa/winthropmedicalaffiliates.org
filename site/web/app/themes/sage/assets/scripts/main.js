@@ -74,4 +74,11 @@
   // Load Events
   $(document).ready(UTIL.loadEvents);
 
+  // Blog remove sidebar
+
+  if ($('body').hasClass('blog')){
+    $('body').removeClass('sidebar-primary');
+    console.log('work');
+  }
+
 })(jQuery); // Fully reference jQuery after this point.

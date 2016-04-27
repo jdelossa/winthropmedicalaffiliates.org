@@ -1,0 +1,46 @@
+.search-panel {
+  #map {
+    height: 300px;
+    width: 100%;
+  }
+  .nav-tabs {
+    li {
+      a {
+        border: none;
+        border-radius: 0;
+        color: $brand-text;
+
+        margin-right: 15px;
+        padding: 10px 40px;
+      }
+    }
+    li.active>a, li.active>a:focus, li.active>a:hover {
+      background-color: $light-gray;
+      color: $brand-text;
+    }
+  }
+  .tab-content {
+    height: 100%;
+    width: 100%;
+    .tab-pane {
+      .search {
+        background-color: $light-gray;
+        color: $brand-text;
+        font-size: 16px;
+        padding: 25px 15px 15px 15px;
+        p {
+          display: inline-block;
+        }
+        .fa-pulse {
+          float: right;
+        }
+      }
+      .results {
+        border: solid 2px $light-gray;
+        border-top: none;
+        color: $brand-text;
+        padding: 15px;
+      }
+    }
+  }
+}
