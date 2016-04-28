@@ -4,6 +4,7 @@
     width: 100%;
   }
   .nav-tabs {
+    border-bottom: none;
     li {
       a {
         border: none;
@@ -12,6 +13,10 @@
 
         margin-right: 15px;
         padding: 10px 40px;
+
+        &:hover, &:focus {
+          background-color: #D4D9DC;
+        }
       }
     }
     li.active>a, li.active>a:focus, li.active>a:hover {
@@ -22,6 +27,7 @@
   .tab-content {
     height: 100%;
     width: 100%;
+    margin-bottom: 15px;
     .tab-pane {
       .search {
         background-color: $light-gray;
@@ -31,16 +37,54 @@
         p {
           display: inline-block;
         }
+        form {
+          display: inline-block;
+        }
+        .form-control {
+          display: inline-block;
+          margin-left: 15px;
+          position: relative;
+            bottom: 3px;
+        }
+        .search-all, .search-name {
+          bottom: 1px;
+          display: inline-block;
+        }
+        .search-all, .search-name, .specialties, .services, .search-specific-location {
+          margin-right: 15px;
+        }
+        .search-all {
+          width: 731px;
+        }
+        .search-name {
+          width: 678px;
+        }
+        .specialties {
+          width: 600px;
+        }
+        .services {
+          width: 552px;
+        }
+        .search-location {
+          width: 400px;
+        }
+        .search-specific-location {
+          width: 295px;
+        }
+
         .fa-pulse {
           float: right;
+          font-size: 22px;
+          position: relative;
+            top: 4px;
         }
       }
-      .results {
-        border: solid 2px $light-gray;
-        border-top: none;
-        color: $brand-text;
-        padding: 15px;
-      }
+    }
+    .results {
+      border: solid 2px $light-gray;
+      border-top: none;
+      color: $brand-text;
+      padding: 15px;
     }
   }
 }
