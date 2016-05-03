@@ -6,19 +6,39 @@
   }
 
   .recent-posts-2 {
-    h3{
+    h3 {
       font-size: 20px;
+      margin-left: 10px;
       text-transform: uppercase;
       &:before {
         content: '\f03a';
         border: solid 1px $white;
         border-radius: 100%;
         font-family: FontAwesome;
-        font-size: 12px;
+        font-size: 15px;
         padding: 8px;
         position: relative;
         bottom: 3px;
-        margin-right: 5px;
+        margin-right: 10px;
+      }
+    }
+    ul {
+      list-style: none;
+      margin-left: 15px;
+      li {
+        &:before {
+          content: "\f111";
+          font-family: FontAwesome;
+          font-size: 10px;
+          display: inline-block;
+          margin-left: -32px;
+          position: relative;
+            top: 27px;
+          width: 1.3em;
+        }
+        h5 > a {
+          font-size: 16px;
+        }
       }
     }
   }
