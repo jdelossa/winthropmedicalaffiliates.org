@@ -79,49 +79,40 @@
         <div class="map">
             <div id="map"></div>
             <script>
+                var myMarkers = [];
+
+                // JSON Format
+                var data = [
+                    {title: 'Garden City Primary Medical Care'},
+                    {title: 'South Shore Cardiovascular Medicine'},
+                    {title: 'Winthrop University'},
+                    {title: 'South Shore Heart'}
+                ];
+
                 function initMap() {
-                    var map = new google.maps.Map(document.getElementById('map'), {
+                    var center = new google.maps.LatLng (40.8483063,-73.1186585);
+                    var mapOptions = {
                         zoom: 9,
-                        center: {lat: 40.8483063, lng: -73.1186585},
-                        mapTypeId: 'roadmap'
+                        center: center
+                    };
+                    map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+                    var marker = new google.maps.Marker({
+                        position: center,
+                        map: map,
+                        title: 'Click to zoom'
                     });
 
-                    var markers = [
-                        ['Garden City Primary Medical Care', 40.729937,-73.636067],
-                        ['South Shore Cardiovascular Medicine', 40.7163424,-73.5513939]
-                    ];
-
-                    var infoWindowContent = [
-                        ['<div class="info_content">' +
-                        '<h4>Garden City Primary Medical Care</h4>' +
-                        '<p>The latest and greatest</p>' +        '</div>'],
-                        ['<div class="info_content">' +
-                        '<h4>South Shore Cardiovascular Medicine</h4>' +
-                        '<p>Hearts are the best.</p>' +
-                        '</div>']
-                    ];
-
-                    var infoWindow = new google.maps.InfoWindow(), marker, i;
-
-                    for (i = 0; i < markers.length; i++) {
-                        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
-                        marker = new google.maps.Marker({
-                            position: position,
-                            map: map,
-                            title: markers[i][0]
-                        });
-
-                        // Allow each marker to have an info window
-                        google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                            return function() {
-                                infoWindow.setContent(infoWindowContent[i][0]);
-                                infoWindow.open(map, marker);
-                            }
-                        })(marker, i));
-
-                    }
-
+                    map.addListener('center_changed', function() {
+                        // 3 seconds after the center of the map has changed, pan back to the
+                        // marker.
+                        window.setTimeout(function() {
+                            map.panTo(marker.getPosition());
+                        }, 3000);
+                    });
                 }
+
+
 
 
 

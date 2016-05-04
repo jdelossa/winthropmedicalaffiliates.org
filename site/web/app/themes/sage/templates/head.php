@@ -3,7 +3,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <?php wp_head(); ?>
-  <script>
+ <!-- <script>
     var myMarkers = [];
     var practices =[];
     //var infowindow = new google.maps.InfoWindow({ content: '' });
@@ -71,5 +71,5 @@
     }
     /* Initialize Map */
     initMap();
-  </script>
+  </script>-->
 </head>
