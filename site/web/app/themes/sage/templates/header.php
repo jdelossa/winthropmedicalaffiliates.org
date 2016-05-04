@@ -7,7 +7,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+      <?php // Display custom logo
+        the_custom_logo();
+        // No Custom Logo, just display the site's name
+      if (!has_custom_logo()) { ?>
       <a class="navbar-brand" href="<?= esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a>
+      <?php } ?>
+
     </div>
 
     <nav class="collapse navbar-collapse" role="navigation">

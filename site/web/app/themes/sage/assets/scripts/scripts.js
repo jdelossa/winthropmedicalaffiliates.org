@@ -15,7 +15,7 @@ $( document ).ready(function() {
         });
 
         if (mainTitle === sidebarTitle){
-            console.log('names')
+            console.log('names');
             console.log(mainTitle);
         }
     }

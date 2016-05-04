@@ -26,9 +26,8 @@ function setup() {
 
   // Logo
   add_theme_support( 'custom-logo', array(
-      'height'      => 60,
-      'width'       => 440,
       'flex-height' => true,
+      'flex-width'  => true
   ) );
 
   // Register wp_nav_menu() menus

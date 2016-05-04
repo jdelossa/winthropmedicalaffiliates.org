@@ -89,6 +89,11 @@
   }
 }
 
+img.custom-logo {
+  height: auto;
+  width: 300px;
+}
+
 @media (min-width: 768px){
   .navbar-nav>li>a {
     padding-top: 10px;
