@@ -83,8 +83,26 @@
     .results {
       border: solid 2px $light-gray;
       border-top: none;
-      color: $brand-text;
+      color: $brand-dark;
       padding: 15px;
+      a.name {
+        color: $brand-text !important;
+        font-size: 18px;
+        font-weight: 400;
+        &:after {
+          content: "\f08e";
+          font-family: FontAwesome;
+          font-style: normal;
+          font-weight: normal;
+          padding-left: 10px;
+          text-decoration: inherit;
+        }
+      }
+      a.phone {
+        color: $brand-text !important;
+        text-decoration: underline;
+      }
+
     }
   }
 }

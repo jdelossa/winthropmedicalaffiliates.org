@@ -1,3 +1,10 @@
+
+<?php
+    // All data from db
+    global $wpdb;
+    $wma = $wpdb->get_results("SELECT * FROM wp_wma;");
+?>
+
 <div class="search-panel">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
@@ -79,42 +86,52 @@
         <div class="map">
             <div id="map"></div>
             <script>
-                var myMarkers = [];
+            function initMap() {
 
-                // JSON Format
-                var data = [
-                    {title: 'Garden City Primary Medical Care'},
-                    {title: 'South Shore Cardiovascular Medicine'},
-                    {title: 'Winthrop University'},
-                    {title: 'South Shore Heart'}
-                ];
+                var center = new google.maps.LatLng (40.8483063,-73.1186585);
+                var mapOptions = {
+                    zoom: 3, //8
+                    center: center
+                };
+                map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-                function initMap() {
-                    var center = new google.maps.LatLng (40.8483063,-73.1186585);
-                    var mapOptions = {
-                        zoom: 9,
-                        center: center
-                    };
-                    map = new google.maps.Map(document.getElementById('map'), mapOptions);
+                // Data in JSON Format
+                var data = <?php echo wp_json_encode($wma); ?>;
+                for (var i in data) {
+                    var name = data[i].name;
+                    var address = data[i].address;
+                    var lng = data[i].lng;
+                    var lat = data[i].lat;
+                    var latlng = new google.maps.LatLng(lat, lng);
+                    console.log(name, lat, lng);
 
                     var marker = new google.maps.Marker({
-                        position: center,
-                        map: map,
-                        title: 'Click to zoom'
+                        title: name,
+                        position: latlng,
+                        map: map
                     });
 
-                    map.addListener('center_changed', function() {
-                        // 3 seconds after the center of the map has changed, pan back to the
-                        // marker.
-                        window.setTimeout(function() {
-                            map.panTo(marker.getPosition());
-                        }, 3000);
+                    var infowindow = new google.maps.InfoWindow({
+                        content: '<h5>' + name + '</h5>' + '<p>' + address + '</p>'
+                    });
+
+                    marker.addListener('click', function() {
+                        infowindow.open(map, marker);
                     });
                 }
 
 
 
 
+                map.addListener('center_changed', function() {
+                    // 3 seconds after the center of the map has changed, pan back to the
+                    // marker.
+                    window.setTimeout(function() {
+                        map.panTo(marker.getPosition());
+                    }, 3000);
+                });
+
+            }
 
 
 
@@ -125,7 +142,28 @@
         </div>
 
         <div class="results">
-            <p><span class="results-count">x</span> Results</p>
+            <!--<p><span class="results-count">x</span> Results</p>-->
+
+            <script type="text/javascript">
+                var data = <?php echo wp_json_encode($wma); ?>;
+                for (var i in data){
+                    var name = data[i].name;
+                    var link = data[i].link;
+                    var address = data[i].address;
+                    var phone = data[i].phone;
+
+                    $('.results').append(
+                        "<p><a class='name'"+ 'href=' + "'" + link  + "'" + ">"+ name +"</a><p>" +
+                        "<p>" + address +"</p>" +
+                        "<p><a class='phone'"+ 'href=' + "tel:'" + phone  + "'" + ">"+ phone +"</a></p>"
+
+                    );
+                }
+
+
+                console.log(data);
+
+            </script>
         </div>
     </div>
 
