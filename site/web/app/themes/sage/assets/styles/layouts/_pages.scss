@@ -75,6 +75,22 @@
         padding-left: 0;
       }
     }
+  }
+}
 
+@media (min-width: 1200px) {
+  .privacy-policy, .privacy-policy-espanol {
+    .affix {
+      margin-bottom: 100px;
+      width: 380px;
+    }
+  }
+}
+@media (max-width: 1200px) {
+  .privacy-policy, .privacy-policy-espanol {
+    .affix {
+      margin-bottom: 100px;
+      width: 28%;
+    }
   }
 }

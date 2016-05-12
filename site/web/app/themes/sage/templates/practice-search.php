@@ -103,7 +103,7 @@
                     var lng = data[i].lng;
                     var lat = data[i].lat;
                     var latlng = new google.maps.LatLng(lat, lng);
-                    console.log(name, lat, lng);
+                    //console.log(name, lat, lng);
 
                     var marker = new google.maps.Marker({
                         title: name,
@@ -142,27 +142,47 @@
         </div>
 
         <div class="results">
-            <!--<p><span class="results-count">x</span> Results</p>-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 border-right">
+                        <p><strong><span class="results-count"></span> Results</strong></p>
+                        <ul class="col-1"></ul>
+                    </div>
+
+                    <div class="col-md-6 padding">
+                        <p></p>
+                        <ul class="col-2"></ul>
+                    </div>
+                </div>
+            </div>
 
             <script type="text/javascript">
                 var data = <?php echo wp_json_encode($wma); ?>;
-                for (var i in data){
+                for (var i in data) {
                     var name = data[i].name;
                     var link = data[i].link;
                     var address = data[i].address;
                     var phone = data[i].phone;
+                    var count = $('.result').length + 1;
 
-                    $('.results').append(
-                        "<p><a class='name'"+ 'href=' + "'" + link  + "'" + ">"+ name +"</a><p>" +
-                        "<p>" + address +"</p>" +
-                        "<p><a class='phone'"+ 'href=' + "tel:'" + phone  + "'" + ">"+ phone +"</a></p>"
+                    var results =
+                        "<li class='result'>" +
+                            "<p><a class='name'" + 'href=' + "'" + link + "'" + ">" + name + "</a><p>" +
+                            "<p>" + address + "</p>" +
+                            "<p><a class='phone'" + 'href=' + "tel:'" + phone + "'" + ">" + phone + "</a></p>" +
+                        "</li>";
 
-                    );
+                    var resultsArr = $('.result').toArray();
+
+                    console.log(resultsArr);
+
+                    $('.results-count').html(count);
+
+                    if (resultsArr.length == 10) {
+                        $('.results > .container > .row > .col-md-6 > .col-1').append(results);
+                    }
+
                 }
-
-
-                console.log(data);
-
             </script>
         </div>
     </div>

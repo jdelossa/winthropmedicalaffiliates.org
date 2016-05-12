@@ -1,3 +1,12 @@
+<div class="header-contact">
+  <div class="container">
+    <?php
+    if (has_nav_menu('header_navigation')) :
+      wp_nav_menu(['theme_location' => 'header_navigation', 'walker' => new wp_bootstrap_navwalker(), 'menu_class' => 'nav navbar-nav']);
+    endif;
+    ?>
+  </div>
+</div>
 <header class="banner navbar navbar-default navbar-static-top" role="banner">
   <div class="container">
     <div class="navbar-header">

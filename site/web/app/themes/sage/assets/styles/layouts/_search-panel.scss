@@ -81,10 +81,23 @@
       }
     }
     .results {
+      .border-right {
+        border-right: solid 2px $light-gray;
+        padding-top: 15px;
+      }
+      .col-1, .col-2 {
+        padding-bottom: 15px;
+        list-style-type: none;
+        padding-left: 0;
+      }
+      .padding  {
+        padding-top: 35px;
+      }
       border: solid 2px $light-gray;
       border-top: none;
       color: $brand-dark;
-      padding: 15px;
+      display: -webkit-box;
+      padding: 0 15px;
       a.name {
         color: $brand-text !important;
         font-size: 18px;
