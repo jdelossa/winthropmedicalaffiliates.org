@@ -8,6 +8,10 @@
       a {
         color: $white;
         font-size: 14px;
+        &:hover, &:active, &:focus, &:visited {
+          background-color: transparent;
+          font-weight: 500;
+        }
       }
     }
   }

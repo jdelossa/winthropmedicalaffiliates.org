@@ -1,12 +1,13 @@
 .sidebar {
   background-color: $brand-dark;
   height: 100vh;
+  min-height: 100vh;
   h1, h2, h3, h4, h5, ul, p, a {
     color: $white;
   }
 
-  .recent-posts-2 {
-    h3 {
+  .recent_with_excerpt {
+    h3:first-child {
       font-size: 20px;
       margin-left: 10px;
       text-transform: uppercase;
@@ -36,8 +37,24 @@
             top: 27px;
           width: 1.3em;
         }
-        h5 > a {
-          font-size: 16px;
+        h2 {
+          margin: 0 0 15px 0;
+          position: relative;
+          top: 3px;
+          line-height: 0.7em;
+          a {
+            font-size: 18px;
+          }
+        }
+        p {
+          font-size: 14px;
+        }
+        .date {
+          &:before {
+            content: '\f017';
+            font-family: FontAwesome;
+            padding-right: 5px;
+          }
         }
       }
     }

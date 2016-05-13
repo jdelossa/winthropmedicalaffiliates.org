@@ -1,3 +1,6 @@
+.single footer {
+  margin-top: 0;
+}
 footer {
   background-color: $brand-light;
   color: $white;
@@ -7,12 +10,17 @@ footer {
     li {
       display: inline-block;
       padding: 10px 2.5px;
-      &:after {
-        content: '|';
-        padding-left: 5px;
-      }
       a {
         color: $white;
+        font-size: 14px;
+        line-height: 20px;
+        padding: 10px 15px;
+        &:hover, &:active, &:focus, &:visited {
+          background-color: transparent;
+          color: $white;
+          font-weight: 500;
+          text-decoration: none;
+        }
 
       }
     }

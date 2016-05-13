@@ -11,7 +11,6 @@
         <li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
         <li role="presentation"><a href="#name" aria-controls="name" role="tab" data-toggle="tab">Name</a></li>
         <li role="presentation"><a href="#specialties" aria-controls="specialties" role="tab" data-toggle="tab">Specialties</a></li>
-        <li role="presentation"><a href="#services" aria-controls="services" role="tab" data-toggle="tab">Services</a></li>
         <li role="presentation"><a href="#practices" aria-controls="practices" role="tab" data-toggle="tab">Locations</a></li>
     </ul>
 
@@ -51,21 +50,6 @@
                 <i class="fa fa-spinner fa-pulse fa-1x fa-fw margin-bottom"></i>
                 <span class="sr-only">Loading...</span>
             </div>
-        </div>
-        <div role="tabpanel" class="tab-pane fade" id="services">
-            <div class="search">
-                <p>I am looking for a Winthrop Medical Affiliate that provides the service:</p>
-                <select class="form-control services">
-                    <option>All Specialties</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
-                <i class="fa fa-spinner fa-pulse fa-1x fa-fw margin-bottom"></i>
-                <span class="sr-only">Loading...</span>
-            </div>
-
         </div>
         <div role="tabpanel" class="tab-pane fade" id="practices">
             <div class="search">
@@ -145,7 +129,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 border-right">
-                        <p><strong><span class="results-count"></span> Results</strong></p>
+                        <!--<p><strong><span class="results-count"></span> Results</strong></p>-->
                         <ul class="col-1"></ul>
                     </div>
 
@@ -174,13 +158,33 @@
 
                     var resultsArr = $('.result').toArray();
 
-                    console.log(resultsArr);
+
+                    $(data.users).each(function () {
+                        $('.col-1').append(results);
+                    });
+                    $('#search-all').keyup(function () {
+                        var yourtext = $(this).val();
+
+                        if (yourtext.length > 0) {
+                            var abc = $("li").filter(function () {
+                                var str = $(this).text();
+                                var re = new RegExp(yourtext, "i");
+                                var result = re.test(str);
+                                if (!result) {
+                                    return $(this);
+                                }
+                                console.log(count.length);
+                            }).hide();
+                        } else {
+                            $("li").show();
+                        }
+                    });
 
                     $('.results-count').html(count);
 
-                    if (resultsArr.length == 10) {
+
                         $('.results > .container > .row > .col-md-6 > .col-1').append(results);
-                    }
+
 
                 }
             </script>

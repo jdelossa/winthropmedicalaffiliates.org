@@ -96,7 +96,8 @@ function display_sidebar() {
     is_404(),
     is_front_page(),
     is_page_template('template-custom.php'),
-    is_page_template('template-medical-practice.php')
+    is_page_template('template-medical-practice.php'),
+    is_page_template('contetnt-single.php')
   ]);
 
   return apply_filters('sage/display_sidebar', $display);

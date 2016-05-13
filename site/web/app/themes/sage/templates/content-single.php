@@ -16,5 +16,7 @@
     <?php comments_template('/templates/comments.php'); ?>
 
     <div class="separator line-separator"></div>
+
+
   </article>
 <?php endwhile; ?>

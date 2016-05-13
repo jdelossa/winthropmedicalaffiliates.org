@@ -1,4 +1,13 @@
 .single {
+  .post {
+    box-shadow: none;
+    margin: 0;
+    background-color: transparent;
+    border-radius: 0;
+    img {
+      border-radius: 0;
+    }
+  }
   .main {
     padding-right: 0;
 
@@ -15,7 +24,11 @@
       p {
         color: $brand-primary;
         font-weight: 500;
-        margin-bottom: 30px;
+        margin-bottom: 15px;
+        font-size: 14px;
+      }
+      .fa {
+        padding-right: 5px;
       }
     }
 
