@@ -81,13 +81,16 @@
 
                 // Data in JSON Format
                 var data = <?php echo wp_json_encode($wma); ?>;
+
                 for (var i in data) {
                     var name = data[i].name;
+                    var link = data[i].link;
                     var address = data[i].address;
+                    var phone = data[i].phone;
+                    var count = $('.result').length + 1;
                     var lng = data[i].lng;
                     var lat = data[i].lat;
                     var latlng = new google.maps.LatLng(lat, lng);
-                    //console.log(name, lat, lng);
 
                     var marker = new google.maps.Marker({
                         title: name,
@@ -102,19 +105,51 @@
                     marker.addListener('click', function() {
                         infowindow.open(map, marker);
                     });
+
+                    map.addListener('center_changed', function() {
+                        // 3 seconds after the center of the map has changed, pan back to the
+                        // marker.
+                        window.setTimeout(function() {
+                            map.panTo(marker.getPosition());
+                        }, 3000);
+                    });
+
+                    var results =
+                        "<li class='result'>" +
+                        "<p><a class='name'" + 'href=' + "'" + link + "'" + ">" + name + "</a><p>" +
+                        "<p>" + address + "</p>" +
+                        "<p><a class='phone'" + 'href=' + "tel:'" + phone + "'" + ">" + phone + "</a></p>" +
+                        "</li>";
+
+                    var resultsArr = $('.result').toArray();
+
+                    $('#search-all').keyup(function () {
+                        var yourtext = $(this).val();
+                        var hidden = $("<li class='result' style='display: none'>");
+                        console.log(hidden.length);
+                        if (yourtext.length > 0) {
+                            var abc = $('li').filter(function () {
+                                var str = $(this).text();
+                                var re = new RegExp(yourtext, "i");
+                                var result = re.test(str);
+                                if (!result) {
+                                    return $(this);
+                                    console.log(hidden.length);
+                                    console.log(abc);
+                                }
+
+                            }).hide();
+                        } else {
+                            $("li").show();
+                        }
+                    });
+
+
+
+                    $('.results > .container > .row > .col-md-6 > .col-1').append(results);
+
+
                 }
-
-
-
-
-                map.addListener('center_changed', function() {
-                    // 3 seconds after the center of the map has changed, pan back to the
-                    // marker.
-                    window.setTimeout(function() {
-                        map.panTo(marker.getPosition());
-                    }, 3000);
-                });
-
             }
 
 
@@ -139,55 +174,6 @@
                     </div>
                 </div>
             </div>
-
-            <script type="text/javascript">
-                var data = <?php echo wp_json_encode($wma); ?>;
-                for (var i in data) {
-                    var name = data[i].name;
-                    var link = data[i].link;
-                    var address = data[i].address;
-                    var phone = data[i].phone;
-                    var count = $('.result').length + 1;
-
-                    var results =
-                        "<li class='result'>" +
-                            "<p><a class='name'" + 'href=' + "'" + link + "'" + ">" + name + "</a><p>" +
-                            "<p>" + address + "</p>" +
-                            "<p><a class='phone'" + 'href=' + "tel:'" + phone + "'" + ">" + phone + "</a></p>" +
-                        "</li>";
-
-                    var resultsArr = $('.result').toArray();
-
-
-                    $(data.users).each(function () {
-                        $('.col-1').append(results);
-                    });
-                    $('#search-all').keyup(function () {
-                        var yourtext = $(this).val();
-
-                        if (yourtext.length > 0) {
-                            var abc = $("li").filter(function () {
-                                var str = $(this).text();
-                                var re = new RegExp(yourtext, "i");
-                                var result = re.test(str);
-                                if (!result) {
-                                    return $(this);
-                                }
-                                console.log(count.length);
-                            }).hide();
-                        } else {
-                            $("li").show();
-                        }
-                    });
-
-                    $('.results-count').html(count);
-
-
-                        $('.results > .container > .row > .col-md-6 > .col-1').append(results);
-
-
-                }
-            </script>
         </div>
     </div>
 
