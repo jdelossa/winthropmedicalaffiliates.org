@@ -70,11 +70,12 @@
         <div class="map">
             <div id="map"></div>
             <script>
-            function initMap() {
+
+                function initMap() {
 
                 var center = new google.maps.LatLng (40.8483063,-73.1186585);
                 var mapOptions = {
-                    zoom: 3, //8
+                    zoom: 9,
                     center: center
                 };
                 map = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -114,12 +115,16 @@
                         }, 3000);
                     });
 
+
+
                     var results =
                         "<li class='result'>" +
                         "<p><a class='name'" + 'href=' + "'" + link + "'" + ">" + name + "</a><p>" +
                         "<p>" + address + "</p>" +
-                        "<p><a class='phone'" + 'href=' + "tel:'" + phone + "'" + ">" + phone + "</a></p>" +
+                        "<p><a class='phone'" + 'href=' + "tel:'" + phone.replace(/\(0\)|\s+/g,'') + "'" + ">" + phone + "</a></p>" +
                         "</li>";
+
+                    console.log(phone);
 
                     var resultsArr = $('.result').toArray();
 
@@ -144,11 +149,7 @@
                         }
                     });
 
-
-
-                    $('.results > .container > .row > .col-md-6 > .col-1').append(results);
-
-
+                    $('.results > .container > .row > .col-md-8 > .col-1').append(results);
                 }
             }
 
@@ -163,8 +164,8 @@
         <div class="results">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6 border-right">
-                        <!--<p><strong><span class="results-count"></span> Results</strong></p>-->
+                    <div class="col-md-8 border-right">
+                        <p class="results-count"></p>
                         <ul class="col-1"></ul>
                     </div>
 
