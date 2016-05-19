@@ -5,12 +5,6 @@
 ?>
 
 
-<?php
-// All data from db
-global $wpdb;
-//$wma = $wpdb->get_results("SELECT * FROM wp_wma;");
-?>
-
 <?php while (have_posts()) : the_post(); ?>
     <?php get_template_part('templates/medical-practice/page', 'header'); ?>
     <?php get_template_part('templates/medical-practice/content', 'page'); ?>
