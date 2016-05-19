@@ -47,7 +47,7 @@ Vagrant.configure('2') do |config|
   # Required for NFS to work
   config.vm.network :private_network, ip: ip, hostsupdater: 'skip'
 
-  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 80, host: 8888
 
   hostname, *aliases = wordpress_sites.flat_map { |(_name, site)| site['site_hosts'] }
   config.vm.hostname = hostname
