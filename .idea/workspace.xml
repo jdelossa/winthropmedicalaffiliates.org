@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2add949-4c07-4bea-8b5a-aac3d9f61049" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/winthropmedicalaffiliates_org_development_2016-05-17.sql" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/web/app/themes/sage/template-medical-practice.php" afterPath="$PROJECT_DIR$/site/web/app/themes/sage/template-medical-practice.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/web/app/themes/sage/templates/medical-practice/page-header.php" afterPath="$PROJECT_DIR$/site/web/app/themes/sage/templates/medical-practice/page-header.php" />
     </list>
     <ignored path="winthropmedicalaffiliates.org.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,10 +24,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="practice-search.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="practice-search.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/templates/practice-search.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-93.125">
+            <state vertical-scroll-proportion="0.6213592">
               <caret line="149" column="148" selection-start-line="70" selection-start-column="12" selection-end-line="149" selection-end-column="148" />
               <folding>
                 <marker date="1463666261000" expanded="true" signature="80:100" placeholder="SELECT * FRO... wp_wma" />
@@ -43,7 +40,7 @@
       <file leaf-file-name="_search-panel.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/assets/styles/layouts/_search-panel.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="-35.416668">
               <caret line="168" column="29" selection-start-line="168" selection-start-column="29" selection-end-line="168" selection-end-column="29" />
               <folding />
             </state>
@@ -60,14 +57,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="page-header.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="page-header.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/templates/medical-practice/page-header.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.13106796">
-              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+            <state vertical-scroll-proportion="-2.5">
+              <caret line="4" column="12" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
               <folding>
-                <marker date="1463691598000" expanded="true" signature="125:160" placeholder="SELECT * FRO... wp_wma" />
-                <marker date="1463691598000" expanded="true" signature="125:169" placeholder="SELECT * FRO... wp_wma" />
+                <marker date="1463691782000" expanded="true" signature="125:160" placeholder="SELECT * FRO... wp_wma" />
+                <marker date="1463691782000" expanded="true" signature="125:169" placeholder="SELECT * FRO... wp_wma" />
               </folding>
             </state>
           </provider>
@@ -76,8 +73,8 @@
       <file leaf-file-name="content-page.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/templates/medical-practice/content-page.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.375">
-              <caret line="23" column="14" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
+            <state vertical-scroll-proportion="-2.5">
+              <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -587,25 +584,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/assets/styles/layouts/_search-panel.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="168" column="29" selection-start-line="168" selection-start-column="29" selection-end-line="168" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/templates/practice-search.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-93.125">
-          <caret line="149" column="148" selection-start-line="70" selection-start-column="12" selection-end-line="149" selection-end-column="148" />
-          <folding>
-            <marker date="1463666261000" expanded="true" signature="80:100" placeholder="SELECT * FRO... wp_wma" />
-            <marker date="1463666261000" expanded="true" signature="5705:5718" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/templates/content.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -641,10 +619,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/templates/entry-meta.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18932039">
+          <caret line="13" column="38" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/templates/medical-practice/page-header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.5">
+          <caret line="4" column="12" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
+          <folding>
+            <marker date="1463691782000" expanded="true" signature="125:160" placeholder="SELECT * FRO... wp_wma" />
+            <marker date="1463691782000" expanded="true" signature="125:169" placeholder="SELECT * FRO... wp_wma" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/templates/medical-practice/content-page.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.375">
-          <caret line="23" column="14" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
+        <state vertical-scroll-proportion="-2.5">
+          <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
           <folding />
         </state>
       </provider>
@@ -657,21 +654,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/templates/entry-meta.php">
+    <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/assets/styles/layouts/_search-panel.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18932039">
-          <caret line="13" column="38" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="50" />
+        <state vertical-scroll-proportion="-35.416668">
+          <caret line="168" column="29" selection-start-line="168" selection-start-column="29" selection-end-line="168" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/templates/medical-practice/page-header.php">
+    <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/templates/practice-search.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13106796">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.6213592">
+          <caret line="149" column="148" selection-start-line="70" selection-start-column="12" selection-end-line="149" selection-end-column="148" />
           <folding>
-            <marker date="1463691598000" expanded="true" signature="125:160" placeholder="SELECT * FRO... wp_wma" />
-            <marker date="1463691598000" expanded="true" signature="125:169" placeholder="SELECT * FRO... wp_wma" />
+            <marker date="1463666261000" expanded="true" signature="80:100" placeholder="SELECT * FRO... wp_wma" />
+            <marker date="1463666261000" expanded="true" signature="5705:5718" placeholder="..." />
           </folding>
         </state>
       </provider>
