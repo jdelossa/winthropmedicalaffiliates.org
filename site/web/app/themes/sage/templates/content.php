@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<div class="col-lg-4 col-md-6">
     <article <?php post_class(); ?>>
         <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('medium'); ?></a>
         <div class="content">

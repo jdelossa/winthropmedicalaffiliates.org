@@ -115,18 +115,12 @@
                         }, 3000);
                     });
 
-
-
                     var results =
                         "<li class='result'>" +
                         "<p><a class='name'" + 'href=' + "'" + link + "'" + ">" + name + "</a><p>" +
                         "<p>" + address + "</p>" +
-                        "<p><a class='phone'" + 'href=' + "tel:'" + phone.replace(/\(0\)|\s+/g,'') + "'" + ">" + phone + "</a></p>" +
+                        "<p><a class='phone'" + 'href=' + "tel:" + phone.replace(/\D/g,'') + "" + ">" + phone + "</a></p>" +
                         "</li>";
-
-                    console.log(phone);
-
-                    var resultsArr = $('.result').toArray();
 
                     $('#search-all').keyup(function () {
                         var yourtext = $(this).val();
@@ -152,11 +146,6 @@
                     $('.results > .container > .row > .col-md-8 > .col-1').append(results);
                 }
             }
-
-
-
-
-
             </script>
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnc2mJFcaQ7MEM4j-jLDtjaV4PTaIApgc&callback=initMap" async defer></script>
         </div>

@@ -62,9 +62,6 @@
         .specialties {
           width: 600px;
         }
-        .services {
-          width: 552px;
-        }
         .search-location {
           width: 400px;
         }
@@ -116,6 +113,63 @@
         text-decoration: underline;
       }
 
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .search-panel {
+    .tab-content {
+      .tab-pane {
+        .search {
+          .search-all {
+            width: 531px;
+          }
+          .search-name {
+            width: 478px;
+          }
+          .specialties {
+            width: 400px;
+          }
+          .search-location {
+            width: 200px;
+          }
+          .search-specific-location {
+            width: 95px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .search-panel {
+    .tab-content {
+      .tab-pane {
+        .search {
+          .search-all {
+            margin-left: 0;
+            margin-top: 10px;
+            width: 646px;
+          }
+          .search-name {
+            width: 478px;
+          }
+          .specialties {
+            width: 400px;
+          }
+          .search-location {
+            width: 200px;
+          }
+          .search-specific-location {
+            width: 95px;
+          }
+          .fa-pulse {
+            margin-top: 10px;
+          }
+        }
+      }
     }
   }
 }
