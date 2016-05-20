@@ -20,7 +20,7 @@ wordpress_sites:
       enabled: false
     env:
       wp_home: http://winthropmedicalaffiliates.dev
-      wp_siteurl: http://winthropmedicalaffiliates.dev/wp
+      wp_siteurl: http://winthropmedicalaffiliates.dev
       db_name: winthropmedicalaffiliates_org_development
       db_user: winthropmedicalaffiliates_org
       db_password: w3bma$t3r
