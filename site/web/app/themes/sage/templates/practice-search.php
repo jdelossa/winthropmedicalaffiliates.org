@@ -76,7 +76,8 @@
                 var center = new google.maps.LatLng (40.8483063,-73.1186585);
                 var mapOptions = {
                     zoom: 9,
-                    center: center
+                    center: center,
+                    scrollwheel: false,
                 };
                 map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
@@ -143,7 +144,9 @@
                         }
                     });
 
-                    $('.results > .container > .row > .col-md-8 > .col-1').append(results);
+                    $('.col-1').append(results);
+
+
                 }
             }
             </script>
@@ -154,8 +157,24 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 border-right">
-                        <p class="results-count"></p>
-                        <ul class="col-1"></ul>
+<!--                        <p class="results-count">Count</p>-->
+
+                        <ul id="pagination" class="col-1"></ul>
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                var options = {
+                                    valueNames: [ 'name', 'category' ],
+                                    page: 3,
+                                    plugins: [
+                                        ListPagination({})
+                                    ]
+                                };
+
+                                var listObj = new List('pagination', options);
+                            });
+                        </script>
+
+
                     </div>
 
                     <div class="col-md-6 padding">

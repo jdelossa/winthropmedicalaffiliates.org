@@ -1,6 +1,7 @@
 .header-contact {
   background-color: $brand-primary;
   height: 40px;
+  min-height: 40px;
   .navbar-nav {
     height: 40px;
     float: right;
@@ -22,6 +23,7 @@
   border-bottom: solid 3px $brand-hightlight;
   color: $brand-dark;
   height: 60px;
+  min-height: 60px;
   padding: 8px 0;
   margin-bottom: 0 !important;
 

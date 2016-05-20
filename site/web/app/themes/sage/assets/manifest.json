@@ -19,7 +19,8 @@
     },
     "scripts.js": {
       "files": [
-        "scripts/scripts.js"
+        "scripts/scripts.js",
+        "scripts/pagination.js"
       ]
     },
     "jquery.js": {
