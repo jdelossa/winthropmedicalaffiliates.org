@@ -10,65 +10,28 @@
 ?>
 
 <div class="search-panel">
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
-        <li role="presentation"><a href="#name" aria-controls="name" role="tab" data-toggle="tab">Name</a></li>
-        <li role="presentation"><a href="#specialties" aria-controls="specialties" role="tab" data-toggle="tab">Specialties</a></li>
-        <li role="presentation"><a href="#practices" aria-controls="practices" role="tab" data-toggle="tab">Locations</a></li>
-    </ul>
-
     <!-- Tab panes -->
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane fade in active" id="all">
+        <div role="tabpanel" class="tab-pane active" id="all">
             <div class="search">
-                <p>I am looking for a Winthrop Medical Affiliate:</p>
-                <form>
-                    <input type="text" class="form-control search-all" id="search-all" placeholder="Search by keywords">
-                </form>
-                <i class="fa fa-spinner fa-pulse fa-1x fa-fw margin-bottom"></i>
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-        <div role="tabpanel" class="tab-pane fade" id="name">
-            <div class="search">
-                <p>I am looking for a Winthrop Medical Affiliate named:</p>
-                <form>
-                    <input type="text" class="form-control search-name" id="search-name" placeholder="Search by name of Winthrop Medical Affiliate">
-                </form>
-                <i class="fa fa-spinner fa-pulse fa-1x fa-fw margin-bottom"></i>
-                <span class="sr-only">Loading...</span>
+                <div class="fuzzy-search">
+                    <p>I am looking for a Winthrop Medical Affiliate:</p>
+                    <form>
+                        <input type="text" class="form-control search-all" id="search-all" placeholder="Search by keywords">
+                    </form>
+<!--                    <i class="fa fa-spinner fa-pulse fa-1x fa-fw margin-bottom"></i>-->
+                </div>
+                <div class="specialty">
+                    <p>I am looking for a Winthrop Medical Affiliate that specializes in:</p>
+                    <select class="form-control specialties">
+                        <option>All Specialties</option>
+                    </select>
+<!--                    <i class="fa fa-spinner fa-pulse fa-1x fa-fw margin-bottom"></i>-->
+                </div>
+                <div class="wma-pagination"></div>
+
             </div>
 
-        </div>
-        <div role="tabpanel" class="tab-pane fade" id="specialties">
-            <div class="search">
-                <p>I am looking for a Winthrop Medical Affiliate that specializes in:</p>
-                <select class="form-control specialties">
-                    <option>All Specialties</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
-                <i class="fa fa-spinner fa-pulse fa-1x fa-fw margin-bottom"></i>
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-        <div role="tabpanel" class="tab-pane fade" id="practices">
-            <div class="search">
-                <p>I am looking for a Winthrop Medical Affiliate in:</p>
-                <form class="form-inline">
-                    <div class="form-group">
-                        <input type="text" class="form-control search-location" id="search-location" placeholder="Location">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control search-specific-location" id="search-specific-location" placeholder="Address, city, zip code">
-                    </div>
-                </form>
-                <i class="fa fa-spinner fa-pulse fa-1x fa-fw margin-bottom"></i>
-                <span class="sr-only">Loading...</span>
-            </div>
         </div>
 
         <div class="map">
@@ -147,13 +110,18 @@
                         }
                     });
 
-                    $('.padding').pagination({
+                    $('.wma-pagination').pagination({
                         dataSource: function(done){
                             $.ajax({
                                 type: 'GET',
                                 url: '/wma.json',
                                 success: function(response){
                                     done(response);
+                                    $.each(response,function(key,value)
+                                    {
+                                        var option = $('<option />').val(value.id).text(value.special);
+                                        $(".specialties").append(option);
+                                    });
                                 }
                             });
                         },
@@ -171,10 +139,13 @@
 
 
                     function template(data) {
-                        var html = "<ul id='pagination' class='col-1'>";
+
+                        var html =
+                        "<ul id='pagination' class='col-1'>";
                         $.each(data, function(index, item){
                             html += '' +
                             "<li class='result'>"
+                                +"<img src='https://placehold.it/300x100'>"
                                 +"<p><a class='name'" + 'href=' + "'" + item.link + "'" + ">" + item.name + "</a></p>"
                                 +"<p>" + item.address + "</p>"
                                 +"<p><a class='phone'" + 'href=' + "tel:" + item.phone.replace(/\D/g,'') + "" + ">" + item.phone + "</a></p>"
@@ -193,14 +164,11 @@
         <div class="results">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-7 border-right">
+                    <div class="col-md-11 border-top">
 <!--                        <p class="results-count">Count</p>-->
 
                         <div class="wma-results"></div>
 
-                    </div>
-
-                    <div class="col-md-5 padding">
                     </div>
                 </div>
             </div>

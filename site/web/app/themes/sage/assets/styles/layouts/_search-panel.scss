@@ -3,27 +3,6 @@
     height: 300px;
     width: 100%;
   }
-  .nav-tabs {
-    border-bottom: none;
-    li {
-      a {
-        border: none;
-        border-radius: 0;
-        color: $brand-text;
-
-        margin-right: 15px;
-        padding: 10px 40px;
-
-        &:hover, &:focus {
-          background-color: #D4D9DC;
-        }
-      }
-    }
-    li.active>a, li.active>a:focus, li.active>a:hover {
-      background-color: $light-gray;
-      color: $brand-text;
-    }
-  }
   .tab-content {
     height: 100%;
     width: 100%;
@@ -34,6 +13,9 @@
         color: $brand-text;
         font-size: 16px;
         padding: 25px 15px 15px 15px;
+        .specialty {
+          padding-top: 15px;
+        }
         p {
           display: inline-block;
         }
@@ -46,28 +28,20 @@
           position: relative;
             bottom: 3px;
         }
-        .search-all, .search-name {
+        .search-all{
           bottom: 1px;
           display: inline-block;
         }
-        .search-all, .search-name, .specialties, .services, .search-specific-location {
+        .search-all, .specialties {
           margin-right: 15px;
         }
         .search-all {
           width: 731px;
         }
-        .search-name {
-          width: 678px;
-        }
         .specialties {
           width: 600px;
         }
-        .search-location {
-          width: 400px;
-        }
-        .search-specific-location {
-          width: 295px;
-        }
+
 
         .fa-pulse {
           float: right;
@@ -78,14 +52,18 @@
       }
     }
     .results {
-      .border-right {
-        border-right: solid 2px $light-gray;
+      .border-top {
         padding-top: 15px;
       }
-      .col-1, .col-2 {
+      .col-1 {
         padding-bottom: 15px;
         list-style-type: none;
         padding-left: 0;
+
+        img {
+          float: left;
+          padding-right: 15px;
+        }
       }
       .padding  {
         padding-top: 35px;
@@ -125,18 +103,11 @@
           .search-all {
             width: 531px;
           }
-          .search-name {
-            width: 478px;
-          }
+
           .specialties {
             width: 400px;
           }
-          .search-location {
-            width: 200px;
-          }
-          .search-specific-location {
-            width: 95px;
-          }
+
         }
       }
     }
@@ -150,21 +121,13 @@
         .search {
           .search-all {
             margin-left: 0;
-            margin-top: 10px;
             width: 646px;
           }
-          .search-name {
-            width: 478px;
-          }
+
           .specialties {
             width: 400px;
           }
-          .search-location {
-            width: 200px;
-          }
-          .search-specific-location {
-            width: 95px;
-          }
+
           .fa-pulse {
             margin-top: 10px;
           }
