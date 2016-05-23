@@ -1,558 +1,1124 @@
-;(function(){
+/*
+ * pagination.js 2.0.7
+ * A jQuery plugin to provide simple yet fully customisable pagination.
+ * https://github.com/superRaytin/paginationjs
+ *
+ * Homepage: http://paginationjs.com
+ *
+ * Copyright 2014-2100, superRaytin
+ * Released under the MIT license.
+ */
 
-    /**
-     * Require the given path.
-     *
-     * @param {String} path
-     * @return {Object} exports
-     * @api public
-     */
+(function(global, $) {
 
-    function require(path, parent, orig) {
-        var resolved = require.resolve(path);
-
-        // lookup failed
-        if (null == resolved) {
-            orig = orig || path;
-            parent = parent || 'root';
-            var err = new Error('Failed to require "' + orig + '" from "' + parent + '"');
-            err.path = orig;
-            err.parent = parent;
-            err.require = true;
-            throw err;
-        }
-
-        var module = require.modules[resolved];
-
-        // perform real require()
-        // by invoking the module's
-        // registered function
-        if (!module._resolving && !module.exports) {
-            var mod = {};
-            mod.exports = {};
-            mod.client = mod.component = true;
-            module._resolving = true;
-            module.call(this, mod.exports, require.relative(resolved), mod);
-            delete module._resolving;
-            module.exports = mod.exports;
-        }
-
-        return module.exports;
+    if (typeof $ === 'undefined') {
+        throwError('Pagination requires jQuery.');
     }
 
-    /**
-     * Registered modules.
-     */
+    var pluginName = 'pagination';
 
-    require.modules = {};
+    var pluginHookMethod = 'addHook';
 
-    /**
-     * Registered aliases.
-     */
+    var eventPrefix = '__pagination-';
 
-    require.aliases = {};
+    // Conflict, use backup
+    if ($.fn.pagination) {
+        pluginName = 'pagination2';
+    }
 
-    /**
-     * Resolve `path`.
-     *
-     * Lookup:
-     *
-     *   - PATH/index.js
-     *   - PATH.js
-     *   - PATH
-     *
-     * @param {String} path
-     * @return {String} path or null
-     * @api private
-     */
+    $.fn[pluginName] = function(options) {
 
-    require.resolve = function(path) {
-        if (path.charAt(0) === '/') path = path.slice(1);
-
-        var paths = [
-            path,
-            path + '.js',
-            path + '.json',
-            path + '/index.js',
-            path + '/index.json'
-        ];
-
-        for (var i = 0; i < paths.length; i++) {
-            var path = paths[i];
-            if (require.modules.hasOwnProperty(path)) return path;
-            if (require.aliases.hasOwnProperty(path)) return require.aliases[path];
-        }
-    };
-
-    /**
-     * Normalize `path` relative to the current path.
-     *
-     * @param {String} curr
-     * @param {String} path
-     * @return {String}
-     * @api private
-     */
-
-    require.normalize = function(curr, path) {
-        var segs = [];
-
-        if ('.' != path.charAt(0)) return path;
-
-        curr = curr.split('/');
-        path = path.split('/');
-
-        for (var i = 0; i < path.length; ++i) {
-            if ('..' == path[i]) {
-                curr.pop();
-            } else if ('.' != path[i] && '' != path[i]) {
-                segs.push(path[i]);
-            }
-        }
-
-        return curr.concat(segs).join('/');
-    };
-
-    /**
-     * Register module at `path` with callback `definition`.
-     *
-     * @param {String} path
-     * @param {Function} definition
-     * @api private
-     */
-
-    require.register = function(path, definition) {
-        require.modules[path] = definition;
-    };
-
-    /**
-     * Alias a module definition.
-     *
-     * @param {String} from
-     * @param {String} to
-     * @api private
-     */
-
-    require.alias = function(from, to) {
-        if (!require.modules.hasOwnProperty(from)) {
-            throw new Error('Failed to alias "' + from + '", it does not exist');
-        }
-        require.aliases[to] = from;
-    };
-
-    /**
-     * Return a require function relative to the `parent` path.
-     *
-     * @param {String} parent
-     * @return {Function}
-     * @api private
-     */
-
-    require.relative = function(parent) {
-        var p = require.normalize(parent, '..');
-
-        /**
-         * lastIndexOf helper.
-         */
-
-        function lastIndexOf(arr, obj) {
-            var i = arr.length;
-            while (i--) {
-                if (arr[i] === obj) return i;
-            }
-            return -1;
-        }
-
-        /**
-         * The relative require() itself.
-         */
-
-        function localRequire(path) {
-            var resolved = localRequire.resolve(path);
-            return require(resolved, parent, path);
-        }
-
-        /**
-         * Resolve relative to the parent.
-         */
-
-        localRequire.resolve = function(path) {
-            var c = path.charAt(0);
-            if ('/' == c) return path.slice(1);
-            if ('.' == c) return require.normalize(p, path);
-
-            // resolve deps by returning
-            // the dep in the nearest "deps"
-            // directory
-            var segs = parent.split('/');
-            var i = lastIndexOf(segs, 'deps') + 1;
-            if (!i) i = 0;
-            path = segs.slice(0, i + 1).join('/') + '/deps/' + path;
-            return path;
-        };
-
-        /**
-         * Check if module is defined at `path`.
-         */
-
-        localRequire.exists = function(path) {
-            return require.modules.hasOwnProperty(localRequire.resolve(path));
-        };
-
-        return localRequire;
-    };
-    require.register("component-classes/index.js", function(exports, require, module){
-        /**
-         * Module dependencies.
-         */
-
-        var index = require('indexof');
-
-        /**
-         * Whitespace regexp.
-         */
-
-        var re = /\s+/;
-
-        /**
-         * toString reference.
-         */
-
-        var toString = Object.prototype.toString;
-
-        /**
-         * Wrap `el` in a `ClassList`.
-         *
-         * @param {Element} el
-         * @return {ClassList}
-         * @api public
-         */
-
-        module.exports = function(el){
-            return new ClassList(el);
-        };
-
-        /**
-         * Initialize a new ClassList for `el`.
-         *
-         * @param {Element} el
-         * @api private
-         */
-
-        function ClassList(el) {
-            if (!el) throw new Error('A DOM element reference is required');
-            this.el = el;
-            this.list = el.classList;
-        }
-
-        /**
-         * Add class `name` if not already present.
-         *
-         * @param {String} name
-         * @return {ClassList}
-         * @api public
-         */
-
-        ClassList.prototype.add = function(name){
-            // classList
-            if (this.list) {
-                this.list.add(name);
-                return this;
-            }
-
-            // fallback
-            var arr = this.array();
-            var i = index(arr, name);
-            if (!~i) arr.push(name);
-            this.el.className = arr.join(' ');
+        if (typeof options === 'undefined') {
             return this;
-        };
+        }
 
-        /**
-         * Remove class `name` when present, or
-         * pass a regular expression to remove
-         * any which match.
-         *
-         * @param {String|RegExp} name
-         * @return {ClassList}
-         * @api public
-         */
+        var container = $(this);
 
-        ClassList.prototype.remove = function(name){
-            if ('[object RegExp]' == toString.call(name)) {
-                return this.removeMatching(name);
-            }
+        var pagination = {
 
-            // classList
-            if (this.list) {
-                this.list.remove(name);
-                return this;
-            }
+            initialize: function() {
+                var self = this;
 
-            // fallback
-            var arr = this.array();
-            var i = index(arr, name);
-            if (~i) arr.splice(i, 1);
-            this.el.className = arr.join(' ');
-            return this;
-        };
-
-        /**
-         * Remove all classes matching `re`.
-         *
-         * @param {RegExp} re
-         * @return {ClassList}
-         * @api private
-         */
-
-        ClassList.prototype.removeMatching = function(re){
-            var arr = this.array();
-            for (var i = 0; i < arr.length; i++) {
-                if (re.test(arr[i])) {
-                    this.remove(arr[i]);
+                // Save attributes of current instance
+                if (!container.data('pagination')) {
+                    container.data('pagination', {});
                 }
-            }
-            return this;
-        };
 
-        /**
-         * Toggle class `name`, can force state via `force`.
-         *
-         * For browsers that support classList, but do not support `force` yet,
-         * the mistake will be detected and corrected.
-         *
-         * @param {String} name
-         * @param {Boolean} force
-         * @return {ClassList}
-         * @api public
-         */
+                // Before initialize
+                if (self.callHook('beforeInit') === false) return;
 
-        ClassList.prototype.toggle = function(name, force){
-            // classList
-            if (this.list) {
-                if ("undefined" !== typeof force) {
-                    if (force !== this.list.toggle(name, force)) {
-                        this.list.toggle(name); // toggle again to correct
+                // If pagination has been initialized, destroy it
+                if (container.data('pagination').initialized) {
+                    $('.paginationjs', container).remove();
+                }
+
+                // Whether to disable Pagination at the initialization
+                self.disabled = !!attributes.disabled;
+
+                // Passed to the callback function
+                var model = self.model = {
+                    pageRange: attributes.pageRange,
+                    pageSize: attributes.pageSize
+                };
+
+                // "dataSource"`s type is unknown, parse it to find true data
+                self.parseDataSource(attributes.dataSource, function(dataSource) {
+
+                    // Whether pagination is sync mode
+                    self.sync = Helpers.isArray(dataSource);
+                    if (self.sync) {
+                        model.totalNumber = attributes.totalNumber = dataSource.length;
                     }
-                } else {
-                    this.list.toggle(name);
-                }
-                return this;
-            }
 
-            // fallback
-            if ("undefined" !== typeof force) {
-                if (!force) {
-                    this.remove(name);
-                } else {
-                    this.add(name);
-                }
-            } else {
-                if (this.has(name)) {
-                    this.remove(name);
-                } else {
-                    this.add(name);
-                }
-            }
+                    // Obtain the total number of pages
+                    model.totalPage = self.getTotalPage();
 
-            return this;
-        };
-
-        /**
-         * Return an array of classes.
-         *
-         * @return {Array}
-         * @api public
-         */
-
-        ClassList.prototype.array = function(){
-            var str = this.el.className.replace(/^\s+|\s+$/g, '');
-            var arr = str.split(re);
-            if ('' === arr[0]) arr.shift();
-            return arr;
-        };
-
-        /**
-         * Check if class `name` is present.
-         *
-         * @param {String} name
-         * @return {ClassList}
-         * @api public
-         */
-
-        ClassList.prototype.has =
-            ClassList.prototype.contains = function(name){
-                return this.list
-                    ? this.list.contains(name)
-                    : !! ~index(this.array(), name);
-            };
-
-    });
-    require.register("component-event/index.js", function(exports, require, module){
-        var bind = window.addEventListener ? 'addEventListener' : 'attachEvent',
-            unbind = window.removeEventListener ? 'removeEventListener' : 'detachEvent',
-            prefix = bind !== 'addEventListener' ? 'on' : '';
-
-        /**
-         * Bind `el` event `type` to `fn`.
-         *
-         * @param {Element} el
-         * @param {String} type
-         * @param {Function} fn
-         * @param {Boolean} capture
-         * @return {Function}
-         * @api public
-         */
-
-        exports.bind = function(el, type, fn, capture){
-            el[bind](prefix + type, fn, capture || false);
-            return fn;
-        };
-
-        /**
-         * Unbind `el` event `type`'s callback `fn`.
-         *
-         * @param {Element} el
-         * @param {String} type
-         * @param {Function} fn
-         * @param {Boolean} capture
-         * @return {Function}
-         * @api public
-         */
-
-        exports.unbind = function(el, type, fn, capture){
-            el[unbind](prefix + type, fn, capture || false);
-            return fn;
-        };
-    });
-    require.register("component-indexof/index.js", function(exports, require, module){
-        module.exports = function(arr, obj){
-            if (arr.indexOf) return arr.indexOf(obj);
-            for (var i = 0; i < arr.length; ++i) {
-                if (arr[i] === obj) return i;
-            }
-            return -1;
-        };
-    });
-    require.register("list.pagination.js/index.js", function(exports, require, module){
-        var classes = require('classes'),
-            events = require('event');
-
-        module.exports = function(options) {
-            options = options || {};
-
-            var pagingList,
-                list;
-
-            var refresh = function() {
-                var item,
-                    l = list.matchingItems.length,
-                    index = list.i,
-                    page = list.page,
-                    pages = Math.ceil(l / page),
-                    currentPage = Math.ceil((index / page)),
-                    innerWindow = options.innerWindow || 2,
-                    left = options.left || options.outerWindow || 0,
-                    right = options.right || options.outerWindow || 0;
-
-                right = pages - right;
-
-                pagingList.clear();
-                for (var i = 1; i <= pages; i++) {
-                    var className = (currentPage === i) ? "active" : "";
-
-                    //console.log(i, left, right, currentPage, (currentPage - innerWindow), (currentPage + innerWindow), className);
-
-                    if (is.number(i, left, right, currentPage, innerWindow)) {
-                        item = pagingList.add({
-                            page: i,
-                            dotted: false
-                        })[0];
-                        if (className) {
-                            classes(item.elm).add(className);
-                        }
-                        addEvent(item.elm, i, page);
-                    } else if (is.dotted(i, left, right, currentPage, innerWindow, pagingList.size())) {
-                        item = pagingList.add({
-                            page: "...",
-                            dotted: true
-                        })[0];
-                        classes(item.elm).add("disabled");
+                    // Less than one page
+                    if (attributes.hideWhenLessThanOnePage) {
+                        if (model.totalPage <= 1) return;
                     }
-                }
-            };
 
-            var is = {
-                number: function(i, left, right, currentPage, innerWindow) {
-                    return this.left(i, left) || this.right(i, right) || this.innerWindow(i, currentPage, innerWindow);
-                },
-                left: function(i, left) {
-                    return (i <= left);
-                },
-                right: function(i, right) {
-                    return (i > right);
-                },
-                innerWindow: function(i, currentPage, innerWindow) {
-                    return ( i >= (currentPage - innerWindow) && i <= (currentPage + innerWindow));
-                },
-                dotted: function(i, left, right, currentPage, innerWindow, currentPageItem) {
-                    return this.dottedLeft(i, left, right, currentPage, innerWindow) || (this.dottedRight(i, left, right, currentPage, innerWindow, currentPageItem));
-                },
-                dottedLeft: function(i, left, right, currentPage, innerWindow) {
-                    return ((i == (left + 1)) && !this.innerWindow(i, currentPage, innerWindow) && !this.right(i, right));
-                },
-                dottedRight: function(i, left, right, currentPage, innerWindow, currentPageItem) {
-                    if (pagingList.items[currentPageItem-1].values().dotted) {
-                        return false;
-                    } else {
-                        return ((i == (right)) && !this.innerWindow(i, currentPage, innerWindow) && !this.right(i, right));
+                    var el = self.render(true);
+
+                    // Extra className
+                    if (attributes.className) {
+                        el.addClass(attributes.className);
                     }
-                }
-            };
 
-            var addEvent = function(elm, i, page) {
-                events.bind(elm, 'click', function() {
-                    list.show((i-1)*page + 1, page);
+                    model.el = el;
+
+                    // Load template
+                    container[attributes.position === 'bottom' ? 'append' : 'prepend'](el);
+
+                    // Binding events
+                    self.observer();
+
+                    // initialized flag
+                    container.data('pagination').initialized = true;
+
+                    // After initialized
+                    self.callHook('afterInit', el);
+
                 });
-            };
 
-            return {
-                init: function(parentList) {
-                    list = parentList;
-                    pagingList = new List(list.listContainer.id, {
-                        listClass: options.paginationClass || 'pagination',
-                        item: "<li><a class='page' href='javascript:function Z(){Z=\"\"}Z()'></a></li>",
-                        valueNames: ['page', 'dotted'],
-                        searchClass: 'pagination-search-that-is-not-supposed-to-exist',
-                        sortClass: 'pagination-sort-that-is-not-supposed-to-exist'
+            },
+
+            render: function(isBoot) {
+
+                var self = this;
+                var model = self.model;
+                var el = model.el || $('<div class="paginationjs"></div>');
+                var isForced = isBoot !== true;
+
+                // Before render
+                self.callHook('beforeRender', isForced);
+
+                var currentPage = model.pageNumber || attributes.pageNumber;
+                var pageRange = attributes.pageRange;
+                var totalPage = model.totalPage;
+
+                var rangeStart = currentPage - pageRange;
+                var rangeEnd = currentPage + pageRange;
+
+                if (rangeEnd > totalPage) {
+                    rangeEnd = totalPage;
+                    rangeStart = totalPage - pageRange * 2;
+                    rangeStart = rangeStart < 1 ? 1 : rangeStart;
+                }
+
+                if (rangeStart <= 1) {
+                    rangeStart = 1;
+
+                    rangeEnd = Math.min(pageRange * 2 + 1, totalPage);
+                }
+
+                el.html(self.createTemplate({
+                    currentPage: currentPage,
+                    pageRange: pageRange,
+                    totalPage: totalPage,
+                    rangeStart: rangeStart,
+                    rangeEnd: rangeEnd
+                }));
+
+                // After render
+                self.callHook('afterRender', isForced);
+
+                return el;
+            },
+
+            // Create template
+            createTemplate: function(args) {
+
+                var self = this;
+                var currentPage = args.currentPage;
+                var totalPage = args.totalPage;
+                var rangeStart = args.rangeStart;
+                var rangeEnd = args.rangeEnd;
+
+                var totalNumber = attributes.totalNumber;
+
+                var showPrevious = attributes.showPrevious;
+                var showNext = attributes.showNext;
+                var showPageNumbers = attributes.showPageNumbers;
+                var showNavigator = attributes.showNavigator;
+                var showGoInput = attributes.showGoInput;
+                var showGoButton = attributes.showGoButton;
+
+                var pageLink = attributes.pageLink;
+                var prevText = attributes.prevText;
+                var nextText = attributes.nextText;
+                var ellipsisText = attributes.ellipsisText;
+                var goButtonText = attributes.goButtonText;
+
+                var classPrefix = attributes.classPrefix;
+                var activeClassName = attributes.activeClassName;
+                var disableClassName = attributes.disableClassName;
+                var ulClassName = attributes.ulClassName;
+
+                var formatNavigator = $.isFunction(attributes.formatNavigator) ? attributes.formatNavigator() : attributes.formatNavigator;
+                var formatGoInput = $.isFunction(attributes.formatGoInput) ? attributes.formatGoInput() : attributes.formatGoInput;
+                var formatGoButton = $.isFunction(attributes.formatGoButton) ? attributes.formatGoButton() : attributes.formatGoButton;
+
+                var autoHidePrevious = $.isFunction(attributes.autoHidePrevious) ? attributes.autoHidePrevious() : attributes.autoHidePrevious;
+                var autoHideNext = $.isFunction(attributes.autoHideNext) ? attributes.autoHideNext() : attributes.autoHideNext;
+
+                var header = $.isFunction(attributes.header) ? attributes.header() : attributes.header;
+                var footer = $.isFunction(attributes.footer) ? attributes.footer() : attributes.footer;
+
+                var html = '';
+                var goInput = '<input type="text" class="J-paginationjs-go-pagenumber">';
+                var goButton = '<input type="button" class="J-paginationjs-go-button" value="'+ goButtonText +'">';
+                var formattedString;
+                var i;
+
+                if (header) {
+
+                    formattedString = self.replaceVariables(header, {
+                        currentPage: currentPage,
+                        totalPage: totalPage,
+                        totalNumber: totalNumber
                     });
-                    list.on('updated', refresh);
-                    refresh();
-                },
-                name: options.name || "pagination"
-            };
+
+                    html += formattedString;
+                }
+
+                if (showPrevious || showPageNumbers || showNext) {
+
+                    html += '<div class="paginationjs-pages">';
+
+                    if (ulClassName) {
+                        html += '<ul class="'+ ulClassName +'">';
+                    }
+                    else{
+                        html += '<ul>';
+                    }
+
+                    // Previous page button
+                    if (showPrevious) {
+                        if (currentPage === 1) {
+                            if (!autoHidePrevious) {
+                                html += '<li class="'+ classPrefix +'-prev '+ disableClassName +'"><a>'+ prevText +'<\/a><\/li>';
+                            }
+                        }
+                        else{
+                            html += '<li class="'+ classPrefix +'-prev J-paginationjs-previous" data-num="'+ (currentPage - 1) +'" title="Previous page"><a href="'+ pageLink +'">'+ prevText +'<\/a><\/li>';
+                        }
+                    }
+
+                    // Page numbers
+                    if (showPageNumbers) {
+                        if (rangeStart <= 3) {
+                            for(i = 1; i < rangeStart; i++) {
+                                if (i == currentPage) {
+                                    html += '<li class="'+ classPrefix +'-page J-paginationjs-page '+ activeClassName +'" data-num="'+ i +'"><a>'+ i +'<\/a><\/li>';
+                                }
+                                else{
+                                    html += '<li class="'+ classPrefix +'-page J-paginationjs-page" data-num="'+ i +'"><a href="'+ pageLink +'">'+ i +'<\/a><\/li>';
+                                }
+                            }
+                        }
+                        else{
+                            if (attributes.showFirstOnEllipsisShow) {
+                                html += '<li class="'+ classPrefix +'-page '+ classPrefix +'-first J-paginationjs-page" data-num="1"><a href="'+ pageLink +'">1<\/a><\/li>';
+                            }
+
+                            html += '<li class="'+ classPrefix +'-ellipsis '+ disableClassName +'"><a>'+ ellipsisText +'<\/a><\/li>';
+                        }
+
+                        // Main loop
+                        for(i = rangeStart; i <= rangeEnd; i++) {
+                            if (i == currentPage) {
+                                html += '<li class="'+ classPrefix +'-page J-paginationjs-page '+ activeClassName +'" data-num="'+ i +'"><a>'+ i +'<\/a><\/li>';
+                            }
+                            else{
+                                html += '<li class="'+ classPrefix +'-page J-paginationjs-page" data-num="'+ i +'"><a href="'+ pageLink +'">'+ i +'<\/a><\/li>';
+                            }
+                        }
+
+                        if (rangeEnd >= totalPage - 2) {
+                            for(i = rangeEnd + 1; i <= totalPage; i++) {
+                                html += '<li class="'+ classPrefix +'-page J-paginationjs-page" data-num="'+ i +'"><a href="'+ pageLink +'">'+ i +'<\/a><\/li>';
+                            }
+                        }
+                        else{
+                            html += '<li class="'+ classPrefix +'-ellipsis '+ disableClassName +'"><a>'+ ellipsisText +'<\/a><\/li>';
+
+                            if (attributes.showLastOnEllipsisShow) {
+                                html += '<li class="'+ classPrefix +'-page '+ classPrefix +'-last J-paginationjs-page" data-num="'+ totalPage +'"><a href="'+ pageLink +'">'+ totalPage +'<\/a><\/li>';
+                            }
+                        }
+                    }
+
+                    // Next page button
+                    if (showNext) {
+                        if (currentPage == totalPage) {
+                            if (!autoHideNext) {
+                                html += '<li class="'+ classPrefix +'-next '+ disableClassName +'"><a>'+ nextText +'<\/a><\/li>';
+                            }
+                        }
+                        else{
+                            html += '<li class="'+ classPrefix +'-next J-paginationjs-next" data-num="'+ (currentPage + 1) +'" title="Next page"><a href="'+ pageLink +'">'+ nextText +'<\/a><\/li>';
+                        }
+                    }
+
+                    html += '<\/ul><\/div>';
+
+                }
+
+                // Navigator
+                if (showNavigator) {
+
+                    if (formatNavigator) {
+
+                        formattedString = self.replaceVariables(formatNavigator, {
+                            currentPage: currentPage,
+                            totalPage: totalPage,
+                            totalNumber: totalNumber
+                        });
+
+                        html += '<div class="'+ classPrefix +'-nav J-paginationjs-nav">'+ formattedString +'<\/div>';
+                    }
+                }
+
+                // Go input
+                if (showGoInput) {
+
+                    if (formatGoInput) {
+
+                        formattedString = self.replaceVariables(formatGoInput, {
+                            currentPage: currentPage,
+                            totalPage: totalPage,
+                            totalNumber: totalNumber,
+                            input: goInput
+                        });
+
+                        html += '<div class="'+ classPrefix +'-go-input">'+ formattedString +'</div>';
+                    }
+                }
+
+                // Go button
+                if (showGoButton) {
+
+                    if (formatGoButton) {
+
+                        formattedString = self.replaceVariables(formatGoButton, {
+                            currentPage: currentPage,
+                            totalPage: totalPage,
+                            totalNumber: totalNumber,
+                            button: goButton
+                        });
+
+                        html += '<div class="'+ classPrefix +'-go-button">'+ formattedString +'</div>';
+                    }
+                }
+
+                if (footer) {
+
+                    formattedString = self.replaceVariables(footer, {
+                        currentPage: currentPage,
+                        totalPage: totalPage,
+                        totalNumber: totalNumber
+                    });
+
+                    html += formattedString;
+                }
+
+                return html;
+            },
+
+            // Go to the specified page
+            go: function(number, callback) {
+
+                var self = this;
+                var model = self.model;
+
+                if (self.disabled) return;
+
+                var pageNumber = number;
+                var pageSize = attributes.pageSize;
+                var totalPage = model.totalPage;
+
+                pageNumber = parseInt(pageNumber);
+
+                // Page number out of bounds
+                if (!pageNumber || pageNumber < 1 || pageNumber > totalPage) return;
+
+                // Sync mode
+                if (self.sync) {
+                    render(self.getDataSegment(pageNumber));
+                    return;
+                }
+
+                var postData = {};
+                var alias = attributes.alias || {};
+
+                postData[alias.pageSize ? alias.pageSize : 'pageSize'] = pageSize;
+                postData[alias.pageNumber ? alias.pageNumber : 'pageNumber'] = pageNumber;
+
+                var formatAjaxParams = {
+                    type: 'get',
+                    cache: false,
+                    data: {},
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    dataType: 'json',
+                    async: true
+                };
+
+                $.extend(true, formatAjaxParams, attributes.ajax);
+                $.extend(formatAjaxParams.data || {}, postData);
+
+                formatAjaxParams.url = attributes.dataSource;
+                formatAjaxParams.success = function(response) {
+                    render(self.filterDataByLocator(response));
+                };
+                formatAjaxParams.error = function(jqXHR, textStatus, errorThrown) {
+                    attributes.formatAjaxError && attributes.formatAjaxError(jqXHR, textStatus, errorThrown);
+                    self.enable();
+                };
+
+                self.disable();
+
+                $.ajax(formatAjaxParams);
+
+                function render(data) {
+
+                    // Before paging
+                    if (self.callHook('beforePaging', pageNumber) === false) return false;
+
+                    // Pagination direction
+                    model.direction = typeof model.pageNumber === 'undefined' ? 0 : (pageNumber > model.pageNumber ? 1 : -1);
+
+                    model.pageNumber = pageNumber;
+
+                    self.render();
+
+                    if (self.disabled && !self.sync) {
+                        // enable
+                        self.enable();
+                    }
+
+                    // cache model data
+                    container.data('pagination').model = model;
+
+                    // format result before execute callback
+                    if ($.isFunction(attributes.formatResult)) {
+                        var cloneData = $.extend(true, [], data);
+                        if (!Helpers.isArray(data = attributes.formatResult(cloneData))) {
+                            data = cloneData;
+                        }
+                    }
+
+                    container.data('pagination').currentPageData = data;
+
+                    // callback
+                    self.doCallback(data, callback);
+
+                    // After pageing
+                    self.callHook('afterPaging', pageNumber);
+
+                    // Already the first page
+                    if (pageNumber == 1) {
+                        self.callHook('afterIsFirstPage');
+                    }
+
+                    // Already the last page
+                    if (pageNumber == model.totalPage) {
+                        self.callHook('afterIsLastPage');
+                    }
+
+                }
+            },
+
+            doCallback: function(data, customCallback) {
+                var self = this;
+                var model = self.model;
+
+                if ($.isFunction(customCallback)) {
+                    customCallback(data, model);
+                }
+                else if ($.isFunction(attributes.callback)) {
+                    attributes.callback(data, model);
+                }
+            },
+
+            destroy: function() {
+
+                // Before destroy
+                if (this.callHook('beforeDestroy') === false) return;
+
+                this.model.el.remove();
+                container.off();
+
+                // Remove style element
+                $('#paginationjs-style').remove();
+
+                // After destroy
+                this.callHook('afterDestroy');
+            },
+
+            previous: function(callback) {
+                this.go(this.model.pageNumber - 1, callback);
+            },
+
+            next: function(callback) {
+                this.go(this.model.pageNumber + 1, callback);
+            },
+
+            disable: function() {
+                var self = this;
+                var source = self.sync ? 'sync' : 'async';
+
+                // Before disable
+                if (self.callHook('beforeDisable', source) === false) return;
+
+                self.disabled = true;
+                self.model.disabled = true;
+
+                // After disable
+                self.callHook('afterDisable', source);
+            },
+
+            enable: function() {
+                var self = this;
+                var source = self.sync ? 'sync' : 'async';
+
+                // Before enable
+                if (self.callHook('beforeEnable', source) === false) return;
+
+                self.disabled = false;
+                self.model.disabled = false;
+
+                // After enable
+                self.callHook('afterEnable', source);
+            },
+
+            refresh: function(callback) {
+                this.go(this.model.pageNumber, callback);
+            },
+
+            show: function() {
+                var self = this;
+
+                if (self.model.el.is(':visible')) return;
+
+                self.model.el.show();
+            },
+
+            hide: function() {
+                var self = this;
+
+                if (!self.model.el.is(':visible')) return;
+
+                self.model.el.hide();
+            },
+
+            // Replace the variables of template
+            replaceVariables: function(template, variables) {
+
+                var formattedString;
+
+                for(var key in variables) {
+                    var value = variables[key];
+                    var regexp = new RegExp('<%=\\s*'+ key +'\\s*%>', 'img');
+
+                    formattedString = (formattedString || template).replace(regexp, value);
+                }
+
+                return formattedString;
+            },
+
+            // Get data segments
+            getDataSegment: function(number) {
+                var pageSize = attributes.pageSize;
+                var dataSource = attributes.dataSource;
+                var totalNumber = attributes.totalNumber;
+
+                var start = pageSize * (number - 1) + 1;
+                var end = Math.min(number * pageSize, totalNumber);
+
+                return dataSource.slice(start - 1, end);
+            },
+
+            // Get total page
+            getTotalPage: function() {
+                return Math.ceil(attributes.totalNumber / attributes.pageSize);
+            },
+
+            // Get locator
+            getLocator: function(locator) {
+                var result;
+
+                if (typeof locator === 'string') {
+                    result = locator;
+                }
+                else if ($.isFunction(locator)) {
+                    result = locator();
+                }
+                else{
+                    throwError('"locator" is incorrect. (String | Function)');
+                }
+
+                return result;
+            },
+
+            // Filter data by "locator"
+            filterDataByLocator: function(dataSource) {
+
+                var locator = this.getLocator(attributes.locator);
+                var filteredData;
+
+                // Data source is an Object, use "locator" to locate the true data
+                if (Helpers.isObject(dataSource)) {
+                    try{
+                        $.each(locator.split('.'), function(index, item) {
+                            filteredData = (filteredData ? filteredData : dataSource)[item];
+                        });
+                    }
+                    catch(e) {}
+
+                    if (!filteredData) {
+                        throwError('dataSource.'+ locator +' is undefined.');
+                    }
+                    else if (!Helpers.isArray(filteredData)) {
+                        throwError('dataSource.'+ locator +' must be an Array.');
+                    }
+                }
+
+                return filteredData || dataSource;
+            },
+
+            // Parse dataSource
+            parseDataSource: function(dataSource, callback) {
+
+                var self = this;
+                var args = arguments;
+
+                if (Helpers.isObject(dataSource)) {
+                    callback(attributes.dataSource = self.filterDataByLocator(dataSource));
+                }
+                else if (Helpers.isArray(dataSource)) {
+                    callback(attributes.dataSource = dataSource);
+                }
+                else if ($.isFunction(dataSource)) {
+                    attributes.dataSource(function(data) {
+                        if ($.isFunction(data)) {
+                            throwError('Unexpect parameter of the "done" Function.');
+                        }
+
+                        args.callee.call(self, data, callback);
+                    });
+                }
+                else if (typeof dataSource === 'string') {
+                    if (/^https?|file:/.test(dataSource)) {
+                        attributes.ajaxDataType = 'jsonp';
+                    }
+
+                    callback(dataSource);
+                }
+                else{
+                    throwError('Unexpect data type of the "dataSource".');
+                }
+            },
+
+            callHook: function(hook) {
+                var paginationData = container.data('pagination');
+                var result;
+
+                var args = Array.prototype.slice.apply(arguments);
+                args.shift();
+
+                if (attributes[hook] && $.isFunction(attributes[hook])) {
+                    if (attributes[hook].apply(global, args) === false) {
+                        result = false;
+                    }
+                }
+
+                if (paginationData.hooks && paginationData.hooks[hook]) {
+                    $.each(paginationData.hooks[hook], function(index, item) {
+                        if (item.apply(global, args) === false) {
+                            result = false;
+                        }
+                    });
+                }
+
+                return result !== false;
+            },
+
+            observer: function() {
+
+                var self = this;
+                var el = self.model.el;
+
+                // Go to page
+                container.on(eventPrefix + 'go', function(event, pageNumber, done) {
+
+                    pageNumber = parseInt($.trim(pageNumber));
+
+                    if (!pageNumber) return;
+
+                    if (!$.isNumeric(pageNumber)) {
+                        throwError('"pageNumber" is incorrect. (Number)');
+                    }
+
+                    self.go(pageNumber, done);
+                });
+
+                // Page click
+                el.delegate('.J-paginationjs-page', 'click', function(event) {
+                    var current = $(event.currentTarget);
+                    var pageNumber = $.trim(current.attr('data-num'));
+
+                    if (!pageNumber || current.hasClass(attributes.disableClassName) || current.hasClass(attributes.activeClassName)) return;
+
+                    // Before page button clicked
+                    if (self.callHook('beforePageOnClick', event, pageNumber) === false) return false;
+
+                    self.go(pageNumber);
+
+                    // After page button clicked
+                    self.callHook('afterPageOnClick', event, pageNumber);
+
+                    if (!attributes.pageLink) return false;
+                });
+
+                // Previous click
+                el.delegate('.J-paginationjs-previous', 'click', function(event) {
+                    var current = $(event.currentTarget);
+                    var pageNumber = $.trim(current.attr('data-num'));
+
+                    if (!pageNumber || current.hasClass(attributes.disableClassName)) return;
+
+                    // Before previous clicked
+                    if (self.callHook('beforePreviousOnClick', event, pageNumber) === false) return false;
+
+                    self.go(pageNumber);
+
+                    // After previous clicked
+                    self.callHook('afterPreviousOnClick', event, pageNumber);
+
+                    if (!attributes.pageLink) return false;
+                });
+
+                // Next click
+                el.delegate('.J-paginationjs-next', 'click', function(event) {
+                    var current = $(event.currentTarget);
+                    var pageNumber = $.trim(current.attr('data-num'));
+
+                    if (!pageNumber || current.hasClass(attributes.disableClassName)) return;
+
+                    // Before next clicked
+                    if (self.callHook('beforeNextOnClick', event, pageNumber) === false) return false;
+
+                    self.go(pageNumber);
+
+                    // After next clicked
+                    self.callHook('afterNextOnClick', event, pageNumber);
+
+                    if (!attributes.pageLink) return false;
+                });
+
+                // Go button click
+                el.delegate('.J-paginationjs-go-button', 'click', function() {
+                    var pageNumber = $('.J-paginationjs-go-pagenumber', el).val();
+
+                    // Before Go button clicked
+                    if (self.callHook('beforeGoButtonOnClick', event, pageNumber) === false) return false;
+
+                    container.trigger(eventPrefix + 'go', pageNumber);
+
+                    // After Go button clicked
+                    self.callHook('afterGoButtonOnClick', event, pageNumber);
+                });
+
+                // go input enter
+                el.delegate('.J-paginationjs-go-pagenumber', 'keyup', function(event) {
+                    if (event.which === 13) {
+                        var pageNumber = $(event.currentTarget).val();
+
+                        // Before Go input enter
+                        if (self.callHook('beforeGoInputOnEnter', event, pageNumber) === false) return false;
+
+                        container.trigger(eventPrefix + 'go', pageNumber);
+
+                        // Regains focus
+                        $('.J-paginationjs-go-pagenumber', el).focus();
+
+                        // After Go input enter
+                        self.callHook('afterGoInputOnEnter', event, pageNumber);
+                    }
+                });
+
+                // Previous page
+                container.on(eventPrefix + 'previous', function(event, done) {
+                    self.previous(done);
+                });
+
+                // Next page
+                container.on(eventPrefix + 'next', function(event, done) {
+                    self.next(done);
+                });
+
+                // Disable
+                container.on(eventPrefix + 'disable', function() {
+                    self.disable();
+                });
+
+                // Enable
+                container.on(eventPrefix + 'enable', function() {
+                    self.enable();
+                });
+
+                // Refresh
+                container.on(eventPrefix + 'refresh', function(event, done) {
+                    self.refresh(done);
+                });
+
+                // Show
+                container.on(eventPrefix + 'show', function() {
+                    self.show();
+                });
+
+                // Hide
+                container.on(eventPrefix + 'hide', function() {
+                    self.hide();
+                });
+
+                // Destroy
+                container.on(eventPrefix + 'destroy', function() {
+                    self.destroy();
+                });
+
+                // Whether to load the default page
+                if (attributes.triggerPagingOnInit) {
+                    container.trigger(eventPrefix + 'go', Math.min(attributes.pageNumber, self.model.totalPage));
+                }
+            }
         };
 
+
+        // If initial
+        if (container.data('pagination') && container.data('pagination').initialized === true) {
+
+            // Handling events
+            if ($.isNumeric(options)) {
+                // container.pagination(5)
+                container.trigger.call(this, eventPrefix + 'go', options, arguments[1]);
+                return this;
+            }
+            else if (typeof options === 'string') {
+
+                var args = Array.prototype.slice.apply(arguments);
+                args[0] = eventPrefix + args[0];
+
+                switch(options) {
+                    case 'previous':
+                    case 'next':
+                    case 'go':
+                    case 'disable':
+                    case 'enable':
+                    case 'refresh':
+                    case 'show':
+                    case 'hide':
+                    case 'destroy':
+                        container.trigger.apply(this, args);
+                        break;
+
+                    // Get selected page number
+                    case 'getSelectedPageNum':
+                        if (container.data('pagination').model) {
+                            return container.data('pagination').model.pageNumber;
+                        }
+                        else{
+                            return container.data('pagination').attributes.pageNumber;
+                        }
+
+                    // Get total page
+                    case 'getTotalPage':
+                        return container.data('pagination').model.totalPage;
+
+                    // Get selected page data
+                    case 'getSelectedPageData':
+                        return container.data('pagination').currentPageData;
+
+                    // Whether pagination was be disabled
+                    case 'isDisabled':
+                        return container.data('pagination').model.disabled === true;
+
+                    default:
+                        throwError('Pagination do not provide action: ' + options);
+                }
+
+                return this;
+            } else {
+                // Uninstall the old instance before initialize a new one
+                uninstallPlugin(container);
+            }
+        }
+        else{
+            if (!Helpers.isObject(options)) {
+                throwError('Illegal options');
+            }
+        }
+
+
+        // Attributes
+        var attributes = $.extend({}, arguments.callee.defaults, options);
+
+        // Check parameters
+        parameterChecker(attributes);
+
+        pagination.initialize();
+
+        return this;
+    };
+
+    // Instance defaults
+    $.fn[pluginName].defaults = {
+
+        // Data source
+        // Array | String | Function | Object
+        //dataSource: '',
+
+        // String | Function
+        //locator: 'data',
+
+        // Total entries, must be specified when the pagination is asynchronous
+        totalNumber: 1,
+
+        // Default page
+        pageNumber: 1,
+
+        // entries of per page
+        pageSize: 10,
+
+        // Page range (pages on both sides of the current page)
+        pageRange: 2,
+
+        // Whether to display the 'Previous' button
+        showPrevious: true,
+
+        // Whether to display the 'Next' button
+        showNext: true,
+
+        // Whether to display the page buttons
+        showPageNumbers: true,
+
+        showNavigator: false,
+
+        // Whether to display the 'Go' input
+        showGoInput: false,
+
+        // Whether to display the 'Go' button
+        showGoButton: false,
+
+        // Page link
+        pageLink: '',
+
+        // 'Previous' text
+        prevText: '&laquo;',
+
+        // 'Next' text
+        nextText: '&raquo;',
+
+        // Ellipsis text
+        ellipsisText: '...',
+
+        // 'Go' button text
+        goButtonText: 'Go',
+
+        // Additional className for Pagination element
+        //className: '',
+
+        classPrefix: 'paginationjs',
+
+        // Default active class
+        activeClassName: 'active',
+
+        // Default disable class
+        disableClassName: 'disabled',
+
+        //ulClassName: '',
+
+        // Whether to insert inline style
+        inlineStyle: true,
+
+        formatNavigator: '<%= currentPage %> / <%= totalPage %>',
+
+        formatGoInput: '<%= input %>',
+
+        formatGoButton: '<%= button %>',
+
+        // Pagination element's position in the container
+        position: 'bottom',
+
+        // Auto hide previous button when current page is the first page
+        autoHidePrevious: false,
+
+        // Auto hide next button when current page is the last page
+        autoHideNext: false,
+
+        //header: '',
+
+        //footer: '',
+
+        // Aliases for custom pagination parameters
+        //alias: {},
+
+        // Whether to trigger pagination at initialization
+        triggerPagingOnInit: true,
+
+        // Whether to hide pagination when less than one page
+        hideWhenLessThanOnePage: false,
+
+        showFirstOnEllipsisShow: true,
+
+        showLastOnEllipsisShow: true,
+
+        // Pagging callback
+        callback: function() {}
+    };
+
+    // Hook register
+    $.fn[pluginHookMethod] = function(hook, callback) {
+
+        if (arguments.length < 2) {
+            throwError('Missing argument.');
+        }
+
+        if (!$.isFunction(callback)) {
+            throwError('callback must be a function.');
+        }
+
+        var container = $(this);
+        var paginationData = container.data('pagination');
+
+        if (!paginationData) {
+            container.data('pagination', {});
+            paginationData = container.data('pagination');
+        }
+
+        !paginationData.hooks && (paginationData.hooks = {});
+
+        //paginationData.hooks[hook] = callback;
+        paginationData.hooks[hook] = paginationData.hooks[hook] || [];
+        paginationData.hooks[hook].push(callback);
+
+    };
+
+    // Static method
+    $[pluginName] = function(selector, options) {
+
+        if (arguments.length < 2) {
+            throwError('Requires two parameters.');
+        }
+
+        var container;
+
+        // 'selector' is a jQuery object
+        if (typeof selector !== 'string' && selector instanceof jQuery) {
+            container = selector;
+        }
+        else{
+            container = $(selector);
+        }
+
+        if (!container.length) return;
+
+        container.pagination(options);
+
+        return container;
+
+    };
+
+    // ============================================================
+    // helpers
+    // ============================================================
+
+    var Helpers = {};
+
+    // Throw error
+    function throwError(content) {
+        throw new Error('Pagination: '+ content);
+    }
+
+    // Check parameters
+    function parameterChecker(args) {
+
+        if (!args.dataSource) {
+            throwError('"dataSource" is required.');
+        }
+
+        if (typeof args.dataSource === 'string') {
+            if (typeof args.totalNumber === 'undefined') {
+                throwError('"totalNumber" is required.');
+            }
+            else if (!$.isNumeric(args.totalNumber)) {
+                throwError('"totalNumber" is incorrect. (Number)');
+            }
+        }
+        else if (Helpers.isObject(args.dataSource)) {
+            if (typeof args.locator === 'undefined') {
+                throwError('"dataSource" is an Object, please specify "locator".');
+            }
+            else if (typeof args.locator !== 'string' && !$.isFunction(args.locator)) {
+                throwError(''+ args.locator +' is incorrect. (String | Function)');
+            }
+        }
+    }
+
+    // uninstall plugin
+    function uninstallPlugin(target) {
+        var events = ['go', 'previous', 'next', 'disable', 'enable', 'refresh', 'show', 'hide', 'destroy'];
+
+        // off events of old instance
+        $.each(events, function(index, value) {
+            target.off(eventPrefix + value);
+        });
+
+        // reset pagination data
+        target.data('pagination', {});
+
+        // remove old
+        $('.paginationjs', target).remove();
+    }
+
+    // Object type detection
+    function getObjectType(object, tmp) {
+        return ( (tmp = typeof(object)) == "object" ? object == null && "null" || Object.prototype.toString.call(object).slice(8, -1) : tmp ).toLowerCase();
+    }
+    $.each(['Object', 'Array'], function(index, name) {
+        Helpers['is' + name] = function(object) {
+            return getObjectType(object) === name.toLowerCase();
+        };
     });
 
+    /*
+     * export via AMD or CommonJS
+     * */
+    if (typeof define === 'function' && define.amd) {
+        define(function() {
+            return $;
+        });
+    }
 
-
-
-
-
-    require.alias("component-classes/index.js", "list.pagination.js/deps/classes/index.js");
-    require.alias("component-classes/index.js", "classes/index.js");
-    require.alias("component-indexof/index.js", "component-classes/deps/indexof/index.js");
-
-    require.alias("component-event/index.js", "list.pagination.js/deps/event/index.js");
-    require.alias("component-event/index.js", "event/index.js");
-
-    require.alias("component-indexof/index.js", "list.pagination.js/deps/indexof/index.js");
-    require.alias("component-indexof/index.js", "indexof/index.js");
-
-    require.alias("list.pagination.js/index.js", "list.pagination.js/index.js");if (typeof exports == "object") {
-        module.exports = require("list.pagination.js");
-    } else if (typeof define == "function" && define.amd) {
-        define(function(){ return require("list.pagination.js"); });
-    } else {
-        this["ListPagination"] = require("list.pagination.js");
-    }})();
+})(this, window.jQuery);

@@ -3,6 +3,10 @@
     // All data from db
     global $wpdb;
     $wma = $wpdb->get_results("SELECT * FROM wp_wma;");
+
+    $fp = fopen('wma.json', 'w');
+    fwrite($fp, json_encode($wma));
+    fclose($fp);
 ?>
 
 <div class="search-panel">
@@ -77,51 +81,50 @@
                 var mapOptions = {
                     zoom: 9,
                     center: center,
-                    scrollwheel: false,
+                    scrollwheel: false
                 };
                 map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
                 // Data in JSON Format
-                var data = <?php echo wp_json_encode($wma); ?>;
+//                var data = "/wma.json";
+//
+//                for (var i in data) {
+//                    var name = data[i].name;
+//                    var link = data[i].link;
+//                    var address = data[i].address;
+//                    var phone = data[i].phone;
+//                    var count = $('.result').length + 1;
+//                    var lng = data[i].lng;
+//                    var lat = data[i].lat;
+//                    var latlng = new google.maps.LatLng(lat, lng);
+//
+//                    var marker = new google.maps.Marker({
+//                        title: name,
+//                        position: latlng,
+//                        map: map
+//                    });
+//
+//                    var infowindow = new google.maps.InfoWindow({
+//                        content: '<h5>' + name + '</h5>' + '<p>' + address + '</p>'
+//                    });
+//
+//                    marker.addListener('click', function() {
+//                        infowindow.open(map, marker);
+//                    });
+//
+//                    map.addListener('center_changed', function() {
+//                        // 3 seconds after the center of the map has changed, pan back to the
+//                        // marker.
+//                        window.setTimeout(function() {
+//                            map.panTo(marker.getPosition());
+//                        }, 3000);
+//                    });
 
-                for (var i in data) {
-                    var name = data[i].name;
-                    var link = data[i].link;
-                    var address = data[i].address;
-                    var phone = data[i].phone;
-                    var count = $('.result').length + 1;
-                    var lng = data[i].lng;
-                    var lat = data[i].lat;
-                    var latlng = new google.maps.LatLng(lat, lng);
-
-                    var marker = new google.maps.Marker({
-                        title: name,
-                        position: latlng,
-                        map: map
-                    });
-
-                    var infowindow = new google.maps.InfoWindow({
-                        content: '<h5>' + name + '</h5>' + '<p>' + address + '</p>'
-                    });
-
-                    marker.addListener('click', function() {
-                        infowindow.open(map, marker);
-                    });
-
-                    map.addListener('center_changed', function() {
-                        // 3 seconds after the center of the map has changed, pan back to the
-                        // marker.
-                        window.setTimeout(function() {
-                            map.panTo(marker.getPosition());
-                        }, 3000);
-                    });
-
-                    var results =
-                        "<li class='result'>" +
-                        "<p><a class='name'" + 'href=' + "'" + link + "'" + ">" + name + "</a><p>" +
-                        "<p>" + address + "</p>" +
-                        "<p><a class='phone'" + 'href=' + "tel:" + phone.replace(/\D/g,'') + "" + ">" + phone + "</a></p>" +
-                        "</li>";
+                //}
+            }
+            </script>
+            <script type="text/javascript">
+                $(document).ready(function() {
 
                     $('#search-all').keyup(function () {
                         var yourtext = $(this).val();
@@ -144,11 +147,45 @@
                         }
                     });
 
-                    $('.col-1').append(results);
+                    $('.padding').pagination({
+                        dataSource: function(done){
+                            $.ajax({
+                                type: 'GET',
+                                url: '/wma.json',
+                                success: function(response){
+                                    done(response);
+                                }
+                            });
+                        },
+                        locator: 'name',
+                        totalNumber: 120,
+                        pageSize: 15,
+                        className: 'paginationjs-theme-blue paginationjs-big',
+
+                        callback: function(data, pagination) {
+                            var html = template(data);
+                            $('.wma-results').html(html);
+                        }
+
+                    })
 
 
-                }
-            }
+                    function template(data) {
+                        var html = "<ul id='pagination' class='col-1'>";
+                        $.each(data, function(index, item){
+                            html += '' +
+                            "<li class='result'>"
+                                +"<p><a class='name'" + 'href=' + "'" + item.link + "'" + ">" + item.name + "</a></p>"
+                                +"<p>" + item.address + "</p>"
+                                +"<p><a class='phone'" + 'href=' + "tel:" + item.phone.replace(/\D/g,'') + "" + ">" + item.phone + "</a></p>"
+
+                            +"</li>" + "<hr>";
+                        });
+                        html += "</ul>";
+                        return html;
+                    }
+
+                });
             </script>
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnc2mJFcaQ7MEM4j-jLDtjaV4PTaIApgc&callback=initMap" async defer></script>
         </div>
@@ -156,30 +193,14 @@
         <div class="results">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 border-right">
+                    <div class="col-md-7 border-right">
 <!--                        <p class="results-count">Count</p>-->
 
-                        <ul id="pagination" class="col-1"></ul>
-                        <script type="text/javascript">
-                            $(document).ready(function() {
-                                var options = {
-                                    valueNames: [ 'name', 'category' ],
-                                    page: 3,
-                                    plugins: [
-                                        ListPagination({})
-                                    ]
-                                };
-
-                                var listObj = new List('pagination', options);
-                            });
-                        </script>
-
+                        <div class="wma-results"></div>
 
                     </div>
 
-                    <div class="col-md-6 padding">
-                        <p></p>
-                        <ul class="col-2"></ul>
+                    <div class="col-md-5 padding">
                     </div>
                 </div>
             </div>
