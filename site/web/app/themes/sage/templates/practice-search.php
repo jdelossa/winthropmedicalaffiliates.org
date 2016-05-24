@@ -143,7 +143,7 @@
                             "<ul class='pagination'>";
                         $.each(data, function (index, item) {
                             html += '' +
-                                "<li class='result col-md-6 clearfix'>"
+                                "<li class='result col-md-6 col-sm-12 clearfix'>"
                                 + "<img src='https://placehold.it/100x100'>"
                                 + "<p><a class='name'" + 'href=' + "'" + item.link + "'" + ">" + item.name + "</a></p>"
                                 + "<p class='address'>" + item.address + "</p>"

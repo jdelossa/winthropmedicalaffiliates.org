@@ -19,12 +19,17 @@
     },
     "scripts.js": {
       "files": [
-        "scripts/scripts.js",
+        "scripts/scripts.js"
       ]
     },
     "pagination.js": {
       "files": [
         "scripts/pagination.js"
+      ]
+    },
+    "modernizr.js": {
+      "files": [
+        "scripts/modernizr.js"
       ]
     },
     "jquery.js": {

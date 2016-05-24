@@ -5,4 +5,5 @@
   <?php wp_head(); ?>
   <script type="text/javascript" src="/app/themes/sage/dist/scripts/scripts.js"></script>
   <script type="text/javascript" src="/app/themes/sage/dist/scripts/pagination.js"></script>
+  <script type="text/javascript" src="/app/themes/sage/dist/scripts/modernizr.js"></script>
 </head>
