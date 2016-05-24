@@ -78,6 +78,12 @@
       color: $brand-dark;
       padding: 0 15px;
 
+      .results-count {
+        padding-top: 15px;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+
       .wma-pagination {
         padding-bottom: 15px;
         width: 100%;

@@ -55,7 +55,6 @@
                 }
 
                 $(document).ready(function() {
-
                     var container = $('.wma-pagination');
                     container.pagination({
                         dataSource:    function (done) {
@@ -65,6 +64,7 @@
                                 success: function(response){
                                     done(response);
                                     var specialty = [];
+                                    var count = $('#results-count').html(response.length);
                                     $.each(response,function(key,response){
                                         $.unique(specialty.sort());
                                         specialty.sort();
@@ -75,6 +75,30 @@
                                         var option = $('<option />').text(value);
                                         $(".specialties").append(option);
                                     });
+
+                                    $('#search-all').keyup(function () {
+                                        var yourtext = $(this).val();
+
+                                        if (yourtext.length > 0) {
+
+                                                $.each(response, function(k, v){
+                                                    var abc = $(v).filter(function () {
+                                                        var str = $(this).text();
+                                                        var re = new RegExp(yourtext, "i");
+                                                        var result = re.test(str);
+                                                        if (!result) {
+                                                            return $(this);
+
+                                                        }
+                                                        console.log(response)
+                                                    }).hide("li");
+                                                })
+
+
+                                        } else {
+                                            $("li").show();
+                                        }
+                                    });
                                 }
                             });
                         },
@@ -82,9 +106,6 @@
                         totalNumber: 120,
                         pageSize: 10,
                         className: 'paginationjs-theme-blue paginationjs-big',
-                        alias: {
-                            pageNumber: 'pageNum'
-                        },
 
                         callback: function(data, pagination) {
                             var html = template(data);
@@ -112,8 +133,9 @@
                         }
                     });
 
-                    container.addHook('afterPageOnClick', function(){
+                    container.addHook('afterPaging', function(){
                         // destroy map markers
+
                     });
 
                     function template(data) {
@@ -141,8 +163,8 @@
         </div><!-- end .map -->
 
         <div class="results">
-            <p class="results-count">Count</p>
             <div class="wma-results">
+                <p class="results-count"><span id="results-count"></span> results</p>
                 <div class="row"></div>
             </div>
             <div class="row">
