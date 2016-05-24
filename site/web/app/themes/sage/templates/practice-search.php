@@ -43,7 +43,6 @@
         <div class="map">
             <div id="map"></div>
             <script type="text/javascript">
-                var markers = [];
                 function initMap() {
                     var center = new google.maps.LatLng(40.8483063, -73.1186585);
                     var mapOptions = {
@@ -51,6 +50,7 @@
                         center: center,
                         scrollwheel: false
                     };
+
                     map = new google.maps.Map(document.getElementById('map'), mapOptions);
                 }
 
@@ -110,52 +110,58 @@
                         callback: function(data, pagination) {
                             var html = template(data);
                             $('.wma-results > .row').html(html);
-                            $.each(data, function (index, data){
-                                var latlng = new google.maps.LatLng(data.lat, data.lng);
+
+                            // Refresh the map, Delete all markers
+
+                            // maps
+                            $.each(data, function (index, item) {
+
+                                var markers = [];
+
+                                var infowindow = new google.maps.InfoWindow();
+
+                                var latlng = new google.maps.LatLng(item.lat, item.lng);
 
                                 var marker = new google.maps.Marker({
-                                    title: data.name,
+                                    title: item.name,
                                     position: latlng,
-                                    map: map
+                                    map: map,
+                                    animation: google.maps.Animation.DROP
                                 });
 
                                 markers.push(marker);
 
-                                var infowindow = new google.maps.InfoWindow({
-                                    content: '<h5>' + data.name + '</h5>' + '<p>' + data.address + '</p>'
-                                });
-
                                 marker.addListener('click', function() {
+                                    infowindow.setContent('<h4>' + item.name + '</h4>' + '<p>' + item.address + '</p>');
                                     infowindow.open(map, marker);
                                 });
 
-                            })
+                            });
+
+                            map.addListener('click', function () {
+                                infowindow.close();
+                            });
+
                         }
                     });
 
-                    container.addHook('afterPaging', function(){
-                        // destroy map markers
-
-                    });
-
                     function template(data) {
-                        var html =
-                            "<ul class='pagination'>";
+                        var html = "<ul class='pagination'>";
+
                         $.each(data, function (index, item) {
+
                             html += '' +
                                 "<li class='result col-md-6 col-sm-12 clearfix'>"
                                 + "<img src='https://placehold.it/100x100'>"
                                 + "<p><a class='name'" + 'href=' + "'" + item.link + "'" + ">" + item.name + "</a></p>"
                                 + "<p class='address'>" + item.address + "</p>"
                                 + "<p><a class='phone'" + 'href=' + "tel:" + item.phone.replace(/\D/g, '') + "" + ">" + item.phone + "</a></p>"
-                                + "<hr>"
+                                + "<br><hr>"
                                 + "</li>";
                         });
                         html += "</ul>";
                         return html;
-
                     }
-
                 });
 
             </script>
