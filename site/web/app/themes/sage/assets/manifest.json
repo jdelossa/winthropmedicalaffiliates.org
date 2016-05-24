@@ -20,6 +20,10 @@
     "scripts.js": {
       "files": [
         "scripts/scripts.js",
+      ]
+    },
+    "pagination.js": {
+      "files": [
         "scripts/pagination.js"
       ]
     },
@@ -28,6 +32,6 @@
     }
   },
   "config": {
-    "devUrl": "http://example.dev"
+    "devUrl": "http://winthropmedicalaffiliates.dev"
   }
 }
