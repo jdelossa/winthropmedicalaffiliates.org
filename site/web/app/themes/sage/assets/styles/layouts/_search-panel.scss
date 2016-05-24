@@ -52,13 +52,34 @@
       }
     }
     .results {
-      .border-top {
-        padding-top: 15px;
-      }
-      .col-1 {
+      border: solid 2px $light-gray;
+      border-top: none;
+      color: $brand-dark;
+      padding: 0 15px;
+
+      .wma-pagination {
         padding-bottom: 15px;
+        width: 100%;
+        .paginationjs {
+          .paginationjs-pages {
+            float: none;
+            text-align: center;
+            ul {
+              display: inline-block;
+              float: none
+            }
+          }
+        }
+      }
+      .pagination {
         list-style-type: none;
         padding-left: 0;
+        margin-bottom: 0;
+
+        li {
+          float: left;
+        }
+
 
         img {
           float: left;
@@ -68,11 +89,9 @@
       .padding  {
         padding-top: 35px;
       }
-      border: solid 2px $light-gray;
-      border-top: none;
-      color: $brand-dark;
-      display: -webkit-box;
-      padding: 0 15px;
+      p.address {
+        font-size: 14px;
+      }
       a.name {
         color: $brand-text !important;
         font-size: 18px;
