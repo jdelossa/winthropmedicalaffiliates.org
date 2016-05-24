@@ -2,7 +2,7 @@
     <div class="col-sm-9">
         <div class="entry-content">
             <h4>Specialities</h4>
-            <?php the_content(); ?>
+            <p>Content</p>
         </div>
     </div>
     <div class="col-sm-3">
@@ -20,5 +20,3 @@
         </div>
     </div>
 </div>
-
-<?php wp_link_pages(['before' => '<nav class="page-nav"><p>' . __('Pages:', 'sage'), 'after' => '</p></nav>']); ?>

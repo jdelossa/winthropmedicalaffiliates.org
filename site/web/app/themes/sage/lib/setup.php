@@ -122,10 +122,10 @@ add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\assets', 100);
 /**
  *  AJAX Call to DB wp_wma
  */
-function wp_wma() {
-  global $wpdb;
-  $wma = $wpdb->get_results("SELECT * FROM wp_wma;");
-  echo json_encode($wma);
-}
-
-add_action('wp_ajax_nopriv_check_user', 'wp_wma');
+//function wp_wma() {
+//  global $wpdb;
+//  $wma = $wpdb->get_results("SELECT * FROM wp_wma;");
+//  echo json_encode($wma);
+//}
+//
+//add_action('wp_ajax_nopriv_check_user', 'wp_wma');
