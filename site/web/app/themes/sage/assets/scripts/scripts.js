@@ -9,18 +9,21 @@ $( document ).ready(function() {
     }
 
     if ($('body').hasClass('single')){
-        console.log('has class is true');
-        var mainTitle = $('.sidebar > h5 > a').text();
-        var sidebarTitle = $('.main > h2').text();
+        var main = $('h3.entry-title').text();
+        var side = $('h2.recent_posts_with_excerpts > a');
+        var sideTitles = [];
 
-        jQuery.each(sidebarTitle, function (i, val){
-            console.log('Hello:' + i + sidebarTitle + val + mainTitle);
-        });
+        $.each(side, function(key, value){
+            sideTitles.push(value.innerText);
+            console.log(value);
 
-        if (mainTitle === sidebarTitle){
-            console.log('names');
-            console.log(mainTitle);
-        }
+            //if (main == side.value.text()){
+
+            //}
+
+        })
+
+
     }
 });
 

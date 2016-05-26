@@ -1,0 +1,12 @@
+<?php
+
+use Carbon\Carbon;
+
+$dateStr =get_post_time('c');
+$ISO = 'Y-m-d\TH:i:sP';
+
+$datetime = Carbon::createFromFormat($ISO, $dateStr);
+
+$carbondate = $datetime->diffForHumans();
+
+?>

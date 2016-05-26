@@ -30,14 +30,7 @@ Copyright 2009  Stephanie Leary  (email : steph@sillybean.net)
 */
 
 // i18n
-use Carbon\Carbon;
 
-//$dateStr =get_the_time('c');
-//$ISO = 'Y-m-d\TH:i:sP';
-//
-//$datetime = Carbon::createFromFormat($ISO, $dateStr);
-//
-//$var = $datetime->diffForHumans();
 
 load_plugin_textdomain( 'recent_posts_with_excerpts', '', plugin_dir_path(__FILE__) . '/languages' );
 
@@ -131,7 +124,7 @@ class RecentPostsWithExcerpts extends WP_Widget {
                     $excerpts--;
 
                 	if (!empty($date))
-					echo '<p class="date">' .get_the_time('c'). ' | '.get_the_time($date).'</p>';
+					echo '<p class="date">'.get_the_time($date).'</p>';
 
 		        }?></li>
 			<?php endwhile; endif; ?>

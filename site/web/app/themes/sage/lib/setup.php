@@ -90,14 +90,15 @@ add_action('widgets_init', __NAMESPACE__ . '\\widgets_init');
 function display_sidebar() {
   static $display;
 
-  isset($display) || $display = !in_array(false, [
+  isset($display) || $display = !in_array(true, [
     // The sidebar will NOT be displayed if ANY of the following return true.
     // @link https://codex.wordpress.org/Conditional_Tags
     is_404(),
     is_front_page(),
-    //is_page_template('template-custom.php'),
-    //is_page_template('template-medical-practice.php'),
-    //is_page_template('content-single.php'),
+    is_page('blog'),
+    is_page_template('template-custom.php'),
+    is_page_template('template-medical-practice.php'),
+    is_page_template('content-single.php'),
     is_page_template('content-search.php')
   ]);
 

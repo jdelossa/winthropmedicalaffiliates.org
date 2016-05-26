@@ -24,7 +24,7 @@ use Roots\Sage\Wrapper;
           <?php include Wrapper\template_path(); ?>
         </main><!-- /.main -->
         <?php if (Setup\display_sidebar()) : ?>
-          <aside class="sidebar">
+          <aside class="sidebar clearfix">
             <?php include Wrapper\sidebar_path(); ?>
           </aside><!-- /.sidebar -->
         <?php endif; ?>

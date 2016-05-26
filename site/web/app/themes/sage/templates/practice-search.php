@@ -43,6 +43,7 @@
         <div class="map">
             <div id="map"></div>
             <script type="text/javascript">
+                // Init Google Map
                 function initMap() {
                     var center = new google.maps.LatLng(40.8483063, -73.1186585);
                     var mapOptions = {
@@ -53,6 +54,25 @@
 
                     map = new google.maps.Map(document.getElementById('map'), mapOptions);
                 }
+                // #search-all
+                $('#search-all').keyup(function () {
+                    // Count
+                    var count = $('#results-count').html($("li.result").length);
+
+                    var yourtext = $(this).val();
+                    if (yourtext.length > 0) {
+                        var abc = $("li").filter(function () {
+                            var str = $(this).text();
+                            var re = new RegExp(yourtext, "i");
+                            var result = re.test(str);
+                            if (!result) {
+                                return $(this);
+                            }
+                        }).hide("li");
+                    } else {
+                        $("li").show();
+                    }
+                });
 
                 $(document).ready(function() {
                     var container = $('.wma-pagination');
@@ -62,42 +82,21 @@
                                 type: 'GET',
                                 url: '/wma.json',
                                 success: function(response){
+                                    // Init response
                                     done(response);
+
+                                    // Specialties List
                                     var specialty = [];
-                                    var count = $('#results-count').html(response.length);
-                                    $.each(response,function(key,response){
+
+                                    $.each(response,function(key,value){
                                         $.unique(specialty.sort());
                                         specialty.sort();
-                                        specialty.push(response.special);
+                                        specialty.push(value.special);
                                     });
 
-                                    $.each(specialty, function(index, value){
+                                    $.each(specialty, function(key, value){
                                         var option = $('<option />').text(value);
                                         $(".specialties").append(option);
-                                    });
-
-                                    $('#search-all').keyup(function () {
-                                        var yourtext = $(this).val();
-
-                                        if (yourtext.length > 0) {
-
-                                                $.each(response, function(k, v){
-                                                    var abc = $(v).filter(function () {
-                                                        var str = $(this).text();
-                                                        var re = new RegExp(yourtext, "i");
-                                                        var result = re.test(str);
-                                                        if (!result) {
-                                                            return $(this);
-
-                                                        }
-                                                        console.log(response)
-                                                    }).hide("li");
-                                                })
-
-
-                                        } else {
-                                            $("li").show();
-                                        }
                                     });
                                 }
                             });
