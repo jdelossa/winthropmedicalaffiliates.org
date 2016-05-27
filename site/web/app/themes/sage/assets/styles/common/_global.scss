@@ -4,6 +4,14 @@
   background-size: 300px;
 }
 
+.slick-dots {
+  display: none !important;
+}
+.gm-style-iw {
+  a {
+    color: $brand-text;
+  }
+}
 .separator {
   height: 50px;
 }
@@ -16,3 +24,25 @@
     color: $brand-text;
   }
 }
+.content {
+  .fa {
+    padding-right: 5px;
+  }
+}
+@media (max-width: 767px){
+  .page-header {
+    h1 {
+      padding-left: 15px;
+      margin: 25px 0 10px;
+    }
+  }
+}
+
+@media (max-width: 480px){
+  .page-header {
+    h1 {
+      font-size: 32px;
+    }
+  }
+}
+

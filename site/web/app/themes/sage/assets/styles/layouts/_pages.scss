@@ -91,6 +91,15 @@
   }
 }
 
+.search {
+  .post {
+    border-radius: none;
+    box-shadow: none;
+  }
+}
+
+
+
 @media (min-width: 1200px) {
   .privacy-policy, .privacy-policy-espanol {
     .affix-sidebar {
@@ -108,3 +117,14 @@
     }
   }
 }
+
+@media (max-width: 991px) {
+  .blog {
+    .posts article {
+      margin-bottom: 30px;
+    }
+  }
+}
+
+
+

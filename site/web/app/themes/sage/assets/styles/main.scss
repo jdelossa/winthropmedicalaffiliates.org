@@ -5,8 +5,12 @@
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
-//FontAwesome
+// FontAwesome
 @import "../../bower_components/font-awesome/scss/font-awesome.scss";
+
+// Google Fonts
+@import url(https://fonts.googleapis.com/css?family=Bitter);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
 @import "common/global";
 @import "components/buttons";
@@ -31,6 +35,10 @@
 p, li, a, ol {
   font-size: 16px;
 }
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Bitter', serif, 'Helvetica', sans-serif;
+}
 body, .container, .content {
   height: 100%;
+  font-family: 'Open Sans', sans-serif, 'Helvetica', sans-serif;
 }

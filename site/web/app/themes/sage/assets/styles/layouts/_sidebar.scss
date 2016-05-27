@@ -1,13 +1,27 @@
+.border {
+  border-left: solid $off-white 1px;
+  display: flex;
+  float: left;
+  height: 65vh;
+  position: relative;
+    top: 61px;
+    left: 24px;
+  z-index: 0;
+}
 .sidebar {
   background-color: $brand-dark;
-  height: 100vh;
-  min-height: 100vh;
   h1, h2, h3, h4, h5, ul, p, a {
-    color: $white;
+    color: $off-white;
   }
-
   .recent_with_excerpt {
+    padding: 15px 15px 15px 0;
+    &:before {
+      border-left: solid $white 1px;
+      height: 100vh;
+    }
+
     h3:first-child {
+      color: $white;
       font-size: 20px;
       margin-left: 10px;
       text-transform: uppercase;
@@ -19,7 +33,8 @@
         font-size: 15px;
         padding: 8px;
         position: relative;
-        bottom: 3px;
+          bottom: 3px;
+        right: 2px;
         margin-right: 10px;
       }
     }
@@ -28,22 +43,31 @@
       margin-left: 15px;
       li {
         &:before {
+          background-color: $brand-dark;
+          border-radius: 100%;
           content: "\f111";
           font-family: FontAwesome;
-          font-size: 10px;
+          font-size: 8px;
           display: inline-block;
-          margin-left: -32px;
+          padding: 12px 8px;
           position: relative;
+          right: 43px;
             top: 27px;
-          width: 1.3em;
+          z-index: 1000;
         }
         h2 {
-          margin: 0 0 15px 0;
+          bottom: 8px;
+          margin: 0 0 5px 0;
           position: relative;
-          top: 3px;
-          line-height: 0.7em;
+
           a {
             font-size: 18px;
+
+            &:hover, &:active, &:focus {
+              color: $white;
+              text-decoration: none;
+              transition: 0.5s;
+            }
           }
         }
         p {
@@ -55,6 +79,17 @@
             font-family: FontAwesome;
             padding-right: 5px;
           }
+        }
+      }
+      li.active {
+        color: $white;
+        &:before {
+          border: solid 1px $white;
+          border-radius: 100%;
+          padding: 6px 8px;
+        }
+        h2, a, p {
+          color: $white;
         }
       }
     }

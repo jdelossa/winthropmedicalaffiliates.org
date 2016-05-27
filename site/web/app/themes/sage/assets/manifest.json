@@ -32,6 +32,12 @@
         "scripts/modernizr.js"
       ]
     },
+    "practice-search.js": {
+      "files": [
+        "scripts/practice-search.js"
+      ]
+    },
+
     "jquery.js": {
       "bower": ["jquery"]
     }
