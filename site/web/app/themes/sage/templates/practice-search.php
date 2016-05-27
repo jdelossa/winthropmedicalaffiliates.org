@@ -7,6 +7,13 @@
     $fp = fopen('wma.json', 'w');
     fwrite($fp, json_encode($wma));
     fclose($fp);
+
+$myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
+$txt = "John Doe\n";
+fwrite($myfile, $txt);
+$txt = "Jane Doe\n";
+fwrite($myfile, $txt);
+fclose($myfile);
 ?>
 
 <div class="search-panel">
@@ -43,6 +50,14 @@
             <script type="text/javascript" src="/app/themes/sage/dist/scripts/pagination.js"></script>
             <script type="text/javascript" src="/app/themes/sage/dist/scripts/practice-search.js"></script>
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnc2mJFcaQ7MEM4j-jLDtjaV4PTaIApgc&callback=initMap" async defer></script>
+            <script>
+                function makePage(){
+                    var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.open("GET","medical-practice.php" true);
+                    xmlhttp.send();
+                }
+
+            </script>
         </div><!-- end .map -->
 
         <div class="results">
