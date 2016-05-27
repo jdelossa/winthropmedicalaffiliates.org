@@ -105,6 +105,9 @@
     background-color: $light-gray;
   }
   .page-header {
+    display: none;
+  }
+  .custom-page-header {
     background-color: $brand-dark;
     border-bottom: none;
     margin: 0;
