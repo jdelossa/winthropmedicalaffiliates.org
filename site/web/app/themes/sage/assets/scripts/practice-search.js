@@ -21,10 +21,6 @@ function initMap() {
 
 // Pagination with Map
 $(document).ready(function() {
-    var element = $('.paginationjs-nav > #results-count').detach();
-    $('.results-count').append(element);
-    console.log($('.paginationjs-nav > #results-count').html())
-
     var container = $('.wma-pagination');
     container.pagination({
         dataSource:    function (done) {

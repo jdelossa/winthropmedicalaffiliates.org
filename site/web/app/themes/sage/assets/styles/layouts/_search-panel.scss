@@ -160,11 +160,10 @@
       .tab-pane {
         .search {
           .search-all {
-            width: 546px;
+            width: 485px;
           }
-
           .specialties {
-            width: 410px;
+            width: 350px;
           }
 
         }
@@ -181,11 +180,9 @@
           .form-control {
             margin-left: 0;
           }
-
           .search-all, .specialties {
-            width: 676px;
+            width: 616px;
           }
-
           .fa-pulse {
             margin-bottom: 10px;
           }
@@ -201,7 +198,7 @@
       .tab-pane {
         .search {
           .search-all, .specialties {
-            width: 376px;
+            width: 345px;
           }
         }
       }
@@ -215,7 +212,21 @@
       .tab-pane {
         .search {
           .search-all, .specialties {
-            width: 315px;
+            width: 300px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .search-panel {
+    .tab-content {
+      .tab-pane {
+        .search {
+          .search-all, .specialties {
+            width: 250px;
           }
         }
       }
