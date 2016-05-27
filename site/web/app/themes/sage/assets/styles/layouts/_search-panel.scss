@@ -7,6 +7,7 @@
     border-bottom: none;
     li {
       a {
+        background-color: $light-gray;
         border: none;
         border-radius: 0;
         color: $brand-text;
@@ -15,19 +16,17 @@
         padding: 10px 40px;
 
         &:hover, &:focus {
-          background-color: #D4D9DC;
+          background-color: $brand-light;
+          color: $off-white;
           font-weight: 600;
-          transition: 0.3s;
+          transition: 0.5s;
         }
       }
     }
     li.active>a, li.active>a:focus, li.active>a:hover {
-      background-color: $light-gray;
-      border-left: none;
-      border-right: none;
-      border-top: none;
-      border-bottom: solid 1px $brand-dark;
-      color: $brand-text;
+      background-color: $brand-dark;
+      border: none;
+      color: $white;
       font-weight: 600;
     }
   }
@@ -36,10 +35,10 @@
     width: 100%;
     margin-bottom: 15px;
     .tab-pane {
-      margin-top: -1px;
+      margin-top: 1px;
       .search {
-        background-color: $light-gray;
-        color: $brand-text;
+        background-color: $brand-dark;
+        color: $white;
         font-size: 16px;
         padding: 25px 15px 15px 15px;
         .specialty {

@@ -10,7 +10,7 @@
 
 // Google Fonts
 @import url(https://fonts.googleapis.com/css?family=Bitter);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
 
 @import "common/global";
 @import "components/buttons";
@@ -41,4 +41,9 @@ h1, h2, h3, h4, h5, h6 {
 body, .container, .content {
   height: 100%;
   font-family: 'Open Sans', sans-serif, 'Helvetica', sans-serif;
+}
+
+.content {
+  margin-left: 15px;
+  margin-right: 15px;
 }

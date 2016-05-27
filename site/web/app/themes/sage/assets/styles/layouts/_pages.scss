@@ -1,4 +1,32 @@
+.singular {
+  .site-map {
+    list-style: none;
+    padding-left: 0;
+    li {
+      font-size: 20px;
+      line-height: 30px;
+    }
+  }
+  .side-header {
+    color: $brand-primary;
+    border-bottom: solid 3px $brand-primary;
+    margin-bottom: 15px;
+  }
+  .side-content {
+    line-height: 25px;
+  }
+}
 .single {
+  .page-header {
+    margin-bottom: 0;
+    h1 {
+      font-size: 25px;
+
+      &:before {
+        content: 'Recent Articles | '
+      }
+    }
+  }
   .post {
     box-shadow: none;
     margin: 0;
@@ -11,6 +39,25 @@
   .main {
     padding-right: 0;
 
+    .featured-practice {
+      margin-bottom: 15px;
+        .header {
+          color: $brand-text;
+          font-size: 24px;
+          margin-bottom: 10px;
+        }
+
+      .medical-practice-address {
+        margin-top: 10px;
+      }
+
+      .medical-practice-phone {
+        font-size: 18px;
+        margin: 25px 0;
+        text-decoration: underline;
+      }
+
+    }
     .featured-image img {
       display: inline-block;
       height: auto;
@@ -46,47 +93,49 @@
     }
   }
 }
-
+.home {
+  .page-header {
+    display: none;
+  }
+}
 .winthrop-medical-practice {
   #map {
     height: 200px;
     width: 100%;
     background-color: $light-gray;
   }
-  .main {
-    .page-header {
-      background-color: $brand-dark;
-      border-bottom: none;
-      margin: 0;
-      padding: 1px 15px 15px 15px;
-      h3 {
-        color: $white;
-      }
-      h4 {
-        color: $brand-text;
-      }
-      p, a {
-        color: $white;
-        display: inline-block;
-      }
-      .phone-number {
-        float: right;
-        font-size: 18px;
-        position: relative;
-          bottom: 35px;
+  .page-header {
+    background-color: $brand-dark;
+    border-bottom: none;
+    margin: 0;
+    padding: 1px 15px 15px 15px;
+    h3 {
+      color: $white;
+    }
+    h4 {
+      color: $brand-text;
+    }
+    p, a {
+      color: $white;
+      display: inline-block;
+    }
+    .phone-number {
+      float: right;
+      font-size: 18px;
+      position: relative;
+        bottom: 35px;
 
-        a {
-          text-decoration: underline;
-        }
+      a {
+        text-decoration: underline;
       }
     }
-    .entry-content {
-      line-height: 30px;
-      padding: 15px 0;
-      ul {
-        list-style-type: none;
-        padding-left: 0;
-      }
+  }
+  .entry-content {
+    line-height: 30px;
+    padding: 15px 0;
+    ul {
+      list-style-type: none;
+      padding-left: 0;
     }
   }
 }
@@ -97,8 +146,6 @@
     box-shadow: none;
   }
 }
-
-
 
 @media (min-width: 1200px) {
   .privacy-policy, .privacy-policy-espanol {

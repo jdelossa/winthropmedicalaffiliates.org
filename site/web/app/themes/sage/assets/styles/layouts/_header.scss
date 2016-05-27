@@ -1,5 +1,5 @@
 .header-contact {
-  background-color: $brand-primary;
+  background-color: $brand-dark;
   height: 40px;
   min-height: 40px;
   .navbar-nav {
@@ -11,7 +11,7 @@
         font-size: 14px;
         &:hover, &:active, &:focus, &:visited {
           background-color: transparent;
-          font-weight: 500;
+          font-weight: 600;
         }
       }
     }

@@ -5,7 +5,7 @@ function initMap() {
         zoom: 9,
         center: center,
         scrollwheel: false,
-        draggable: true,
+        draggable: true
     };
     markers = [];
 
@@ -21,6 +21,10 @@ function initMap() {
 
 // Pagination with Map
 $(document).ready(function() {
+    var element = $('.paginationjs-nav > #results-count').detach();
+    $('.results-count').append(element);
+    console.log($('.paginationjs-nav > #results-count').html())
+
     var container = $('.wma-pagination');
     container.pagination({
         dataSource:    function (done) {
@@ -48,16 +52,17 @@ $(document).ready(function() {
             });
         },
         locator: '',
-        totalNumber: 120,
         pageSize: 6,
         className: 'paginationjs-theme-blue paginationjs-big',
+        showNavigator: true,
+        formatNavigator: '<span id="results-count"><%= totalNumber %> results</span>',
 
         callback: function(data, pagination) {
             var html = template(data);
             $('.wma-results > .row').html(html);
 
             // Maps - Add Marker
-            function addMarker(location) {
+            function addMarker() {
                 $.each(data, function (index, item) {
                     var latlng = new google.maps.LatLng(item.lat, item.lng);
 
@@ -78,7 +83,7 @@ $(document).ready(function() {
             } addMarker();
 
             // Maps - Delete Marker
-            function deleteMarker(location) {
+            function deleteMarker() {
                 $.each(markers, function (index){
                     markers[index].setMap(null)
                 });
