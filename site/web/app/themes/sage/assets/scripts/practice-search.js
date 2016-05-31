@@ -31,8 +31,18 @@ $(document).ready(function() {
                     // Init response
                     done(response);
 
-                    $('#search-all').hideseek().keyup(function () {
-                        $('.fa-spinner').hide();
+                    $('#search-all').hideseek({
+                        nodata: 'No results found',
+                        navigation: true
+                    });
+
+                    $('.search').bind({
+                        keyup: function() {
+                            $('.search').find('.fa-spinner').show();
+                        },
+                        blur: function() {
+                            $('.search').find('.fa-spinner').hide();
+                        }
                     });
 
                     // Specialties List
@@ -45,9 +55,21 @@ $(document).ready(function() {
                     });
 
                     $.each(specialty, function(key, value){
-                        var option = $('<option />').text(value);
+                        var option = $('<option value="specialty"></option>').text(value);
                         $(".specialties").append(option);
+
+
+                        $("#specialty").change(function () {
+                            console.log(value.special)
+                            var matchVal = $("#specialty option:selected").text();
+                            value.special.filter(function (specialty) {
+                                //if (special.make == matchVal) {
+                                //}
+                            });
+                        });
+
                     });
+
                 }
             });
         },
@@ -61,7 +83,6 @@ $(document).ready(function() {
             var html = template(data);
             $('.wma-results > .row').html(html);
 
-            console.log(data)
             // Maps - Add Marker
             function addMarker() {
                 $.each(data, function (index, item) {
@@ -98,13 +119,12 @@ $(document).ready(function() {
         var html = "<ul class='pagination'>";
 
         $.each(data, function (index, item) {
-            console.log(item[0])
             // Template
             html += '' +
                 "<li class='result col-md-6 col-sm-12 clearfix'>"
                 + "<img src='https://placehold.it/250x200' class='practice-thumbnail' alt='" + item.special + "'" + "title='" + item.special + " Medical Practice'" + " >"
                 + "<p><a class='name'" + 'href=' + "'" + item.link + "'" + ">" + item.name + "</a></p>"
-                + "<p class='address'>" + item.address + "</p>"
+                + "<p class='address'>" + item.address + "<span class='hidden'>"+ item.special +"</span></p>"
                 + "<p><a class='phone'" + 'href=' + "tel:" + item.phone.replace(/\D/g, '') + "" + ">" + item.phone + "</a></p>"
                 + "<br><hr>"
                 + "</li>";

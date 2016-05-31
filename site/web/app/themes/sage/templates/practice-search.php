@@ -31,7 +31,7 @@
         <div role="tabpanel" class="tab-pane fade" id="specialties">
             <div class="search">
                 <p>I am looking for a Winthrop Medical Affiliate that specializes in:</p>
-                <select class="form-control specialties">
+                <select class="form-control specialties" name="specialty" id="specialty">
                     <option>All Specialties</option>
                 </select>
                 <i class="fa fa-spinner fa-pulse fa-1x fa-fw margin-bottom"></i>
