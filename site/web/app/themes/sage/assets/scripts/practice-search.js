@@ -31,6 +31,10 @@ $(document).ready(function() {
                     // Init response
                     done(response);
 
+                    $('#search-all').hideseek().keyup(function () {
+                        $('.fa-spinner').hide();
+                    });
+
                     // Specialties List
                     var specialty = [];
 
@@ -93,18 +97,12 @@ $(document).ready(function() {
     function template(data) {
         var html = "<ul class='pagination'>";
 
-        $('#search-all').keyup(function () {
-            $('.fa-spinner').hide();
-        }).hideseek(
-            nodata: 'No results found',
-            navigation: true
-        );
-
         $.each(data, function (index, item) {
+            console.log(item[0])
             // Template
             html += '' +
                 "<li class='result col-md-6 col-sm-12 clearfix'>"
-                + "<img src='https://placehold.it/250x200' class='practice-thumbnail'>"
+                + "<img src='https://placehold.it/250x200' class='practice-thumbnail' alt='" + item.special + "'" + "title='" + item.special + " Medical Practice'" + " >"
                 + "<p><a class='name'" + 'href=' + "'" + item.link + "'" + ">" + item.name + "</a></p>"
                 + "<p class='address'>" + item.address + "</p>"
                 + "<p><a class='phone'" + 'href=' + "tel:" + item.phone.replace(/\D/g, '') + "" + ">" + item.phone + "</a></p>"
