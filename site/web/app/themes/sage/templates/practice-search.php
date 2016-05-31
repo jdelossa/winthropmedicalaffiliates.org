@@ -22,7 +22,7 @@
             <div class="search">
                 <p>I am looking for a Winthrop Medical Affiliate:</p>
                 <form>
-                    <input type="text" class="form-control search-all" id="search-all" placeholder="Search by keywords">
+                    <input type="text" class="form-control search-all" id="search-all" name="search-all" placeholder="Search by keywords" data-list=".pagination">
                 </form>
                 <i class="fa fa-spinner fa-pulse fa-1x fa-fw margin-bottom"></i>
             </div>

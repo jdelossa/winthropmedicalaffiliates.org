@@ -71,6 +71,7 @@
         }
 
         .fa-pulse {
+          display: none;
           float: right;
           font-size: 22px;
           position: relative;
@@ -92,6 +93,7 @@
 
       .wma-pagination {
         padding-bottom: 15px;
+        padding-top: 45px;
         width: 100%;
         .paginationjs {
           .paginationjs-pages {
@@ -195,10 +197,19 @@
 @media (max-width: 767px) {
   .search-panel {
     .tab-content {
-      .tab-pane {
-        .search {
-          .search-all, .specialties {
-            width: 345px;
+        .tab-pane {
+          .search {
+            .search-all, .specialties {
+              width: 345px;
+            }
+          }
+        }
+      .results {
+        .pagination {
+          li {
+            height: 160px;
+            margin-bottom: 10px;
+            width: 100%;
           }
         }
       }
@@ -209,6 +220,38 @@
 @media (max-width: 480px) {
   .search-panel {
     .tab-content {
+        .results {
+          .wma-pagination {
+            .paginationjs {
+              .paginationjs-pages {
+                float: none;
+                text-align: center;
+                ul {
+                  li {
+                      a {
+                        min-width: 30px;
+                        height: 30px;
+                        line-height: 30px;
+                        font-size: 13px;
+                      }
+                    }
+                  li.active {
+                    border: solid 1px $brand-primary;
+                  }
+                  }
+                }
+              }
+            }
+
+            .pagination {
+              li {
+                height: 185px;
+                margin-top: 25px;
+            }
+          }
+        }
+      }
+
       .tab-pane {
         .search {
           .search-all, .specialties {
@@ -216,7 +259,6 @@
           }
         }
       }
-    }
   }
 }
 

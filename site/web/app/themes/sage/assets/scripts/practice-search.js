@@ -48,7 +48,7 @@ $(document).ready(function() {
             });
         },
         locator: '',
-        pageSize: 6,
+        pageSize: 30,
         className: 'paginationjs-theme-blue paginationjs-big',
         showNavigator: true,
         formatNavigator: '<span id="results-count"><%= totalNumber %> results</span>',
@@ -57,6 +57,7 @@ $(document).ready(function() {
             var html = template(data);
             $('.wma-results > .row').html(html);
 
+            console.log(data)
             // Maps - Add Marker
             function addMarker() {
                 $.each(data, function (index, item) {
@@ -91,6 +92,13 @@ $(document).ready(function() {
 
     function template(data) {
         var html = "<ul class='pagination'>";
+
+        $('#search-all').keyup(function () {
+            $('.fa-spinner').hide();
+        }).hideseek(
+            nodata: 'No results found',
+            navigation: true
+        );
 
         $.each(data, function (index, item) {
             // Template

@@ -43,11 +43,6 @@ $(document).ready(function() {
         })
     }
 
-    var query = Modernizr.mq('(max-width: 480px)');
-    if (query) {
-        console.log("reached")
-        $(".wma-pagination").children().remove(".paginationjs-big");
-    }
 });
 
 $(function() {
