@@ -31,20 +31,6 @@ $(document).ready(function() {
                     // Init response
                     done(response);
 
-                    $('#search-all').hideseek({
-                        nodata: 'No results found',
-                        navigation: true
-                    });
-
-                    $('.search').bind({
-                        keyup: function() {
-                            $('.search').find('.fa-spinner').show();
-                        },
-                        blur: function() {
-                            $('.search').find('.fa-spinner').hide();
-                        }
-                    });
-
                     // Specialties List
                     var specialty = [];
 
@@ -70,6 +56,8 @@ $(document).ready(function() {
 
                     });
 
+                    $( ".paginationjs-nav" ).insertBefore( $( ".wma-results" ) );
+
                 }
             });
         },
@@ -77,11 +65,27 @@ $(document).ready(function() {
         pageSize: 30,
         className: 'paginationjs-theme-blue paginationjs-big',
         showNavigator: true,
-        formatNavigator: '<span id="results-count"><%= totalNumber %> results</span>',
+        formatNavigator: '<p class="results-count"><%= totalNumber %> results</p>',
+        position: top,
 
         callback: function(data, pagination) {
             var html = template(data);
             $('.wma-results > .row').html(html);
+
+            // Search on each page
+            $('#search-all').hideseek({
+                nodata: 'Enter to search',
+                navigation: true
+            });
+
+            $('.search').bind({
+                keyup: function() {
+                    $('.search').find('.fa-spinner').show();
+                },
+                blur: function() {
+                    $('.search').find('.fa-spinner').hide();
+                }
+            });
 
             // Maps - Add Marker
             function addMarker() {

@@ -47,7 +47,6 @@
 
         <div class="results">
             <div class="wma-results">
-                <p class="results-count"></p>
                 <div class="row"></div>
             </div>
             <div class="row">
