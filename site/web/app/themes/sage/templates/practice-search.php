@@ -24,7 +24,7 @@
                 <form>
                     <input type="text" class="form-control search-all" id="search-all" name="search-all" placeholder="Search by keywords" data-list=".pagination">
                 </form>
-                <i class="fa fa-spinner fa-pulse fa-1x fa-fw margin-bottom"></i>
+<!--                <i class="fa fa-spinner fa-pulse fa-1x fa-fw margin-bottom"></i>-->
             </div>
         </div><!-- end #all -->
 
@@ -34,7 +34,7 @@
                 <select class="form-control specialties" name="specialty" id="specialty">
                     <option>All Specialties</option>
                 </select>
-                <i class="fa fa-spinner fa-pulse fa-1x fa-fw margin-bottom"></i>
+<!--                <i class="fa fa-spinner fa-pulse fa-1x fa-fw margin-bottom"></i>-->
             </div>
         </div><!-- end #specialties -->
 

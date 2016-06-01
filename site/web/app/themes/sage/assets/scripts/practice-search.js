@@ -44,18 +44,14 @@ $(document).ready(function() {
                         var option = $('<option value="specialty"></option>').text(value);
                         $(".specialties").append(option);
 
-
-                        $("#specialty").change(function () {
-                            console.log(value.special)
-                            var matchVal = $("#specialty option:selected").text();
-                            value.special.filter(function (specialty) {
-                                //if (special.make == matchVal) {
-                                //}
-                            });
-                        });
-
                     });
 
+                    // Specialties Search
+                    $('#specialty').change(function () {
+                        console.log(response.Object.special)
+                    });
+
+                    // Results count
                     $( ".paginationjs-nav" ).insertBefore( $( ".wma-results" ) );
 
                 }
@@ -74,17 +70,8 @@ $(document).ready(function() {
 
             // Search on each page
             $('#search-all').hideseek({
-                nodata: 'Enter to search',
+                nodata: 'Medical practice is not on this page, press enter to search',
                 navigation: true
-            });
-
-            $('.search').bind({
-                keyup: function() {
-                    $('.search').find('.fa-spinner').show();
-                },
-                blur: function() {
-                    $('.search').find('.fa-spinner').hide();
-                }
             });
 
             // Maps - Add Marker

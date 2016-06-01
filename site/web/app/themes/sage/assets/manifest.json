@@ -41,12 +41,7 @@
       "files": [
         "scripts/hideseek.js"
       ]
-    },
-    "initializers.js": {
-      "files": [
-        "scripts/initializers.js"
-      ]
-    },
+    }
     "jquery.js": {
       "bower": ["jquery"]
     }

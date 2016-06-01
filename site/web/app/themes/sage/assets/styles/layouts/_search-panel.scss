@@ -68,6 +68,10 @@
         }
         .specialties {
           width: 550px;
+
+          option:last-child {
+            display: none;
+          }
         }
 
         .fa-pulse {
@@ -103,6 +107,9 @@
               float: none
             }
           }
+        }
+        .paginationjs-nav {
+          display: none;
         }
       }
       .pagination {
