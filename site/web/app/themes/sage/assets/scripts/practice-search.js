@@ -34,12 +34,19 @@ $(document).ready(function() {
                     // Specialties List
                     var specialty = [];
 
+                    // For each response
                     $.each(response,function(key,value){
+                        // Specialty array
                         $.unique(specialty.sort());
                         specialty.sort();
                         specialty.push(value.special);
+
+
                     });
 
+
+
+                    // Specialties Options
                     $.each(specialty, function(key, value){
                         var option = $('<option value="specialty"></option>').text(value);
                         $(".specialties").append(option);
@@ -58,7 +65,7 @@ $(document).ready(function() {
             });
         },
         locator: '',
-        pageSize: 30,
+        pageSize: 32,
         className: 'paginationjs-theme-blue paginationjs-big',
         showNavigator: true,
         formatNavigator: '<p class="results-count"><%= totalNumber %> results</p>',

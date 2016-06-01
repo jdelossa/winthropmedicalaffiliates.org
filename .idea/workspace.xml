@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2add949-4c07-4bea-8b5a-aac3d9f61049" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/site/web/574f057c1cd85.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/site/web/574f05dc82c71.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/web/app/themes/sage/template-medical-practice.php" afterPath="$PROJECT_DIR$/site/web/app/themes/sage/template-medical-practice.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/web/app/themes/sage/assets/scripts/practice-search.js" afterPath="$PROJECT_DIR$/site/web/app/themes/sage/assets/scripts/practice-search.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/web/app/themes/sage/assets/styles/layouts/_search-panel.scss" afterPath="$PROJECT_DIR$/site/web/app/themes/sage/assets/styles/layouts/_search-panel.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site/web/wma.json" afterPath="$PROJECT_DIR$/site/web/wma.json" />
     </list>
     <ignored path="winthropmedicalaffiliates.org.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,11 +29,11 @@
       <file leaf-file-name="practice-search.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/assets/scripts/practice-search.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2994012">
-              <caret line="34" column="39" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
+            <state vertical-scroll-proportion="0.44210526">
+              <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
               <folding>
-                <marker date="1464796114000" expanded="true" signature="3654:4222" placeholder="..." />
-                <marker date="1464796114000" expanded="true" signature="3825:4222" placeholder="..." />
+                <marker date="1464804098000" expanded="true" signature="3785:4353" placeholder="..." />
+                <marker date="1464804098000" expanded="true" signature="3956:4353" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -60,6 +59,16 @@
               <folding>
                 <element signature="e#6#57#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_search-panel.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/assets/styles/layouts/_search-panel.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-28.75">
+              <caret line="142" column="8" selection-start-line="142" selection-start-column="10" selection-end-line="149" selection-end-column="11" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -135,11 +144,11 @@
         <option value="$PROJECT_DIR$/site/web/app/themes/sage/assets/scripts/ddtf.js" />
         <option value="$PROJECT_DIR$/site/web/app/themes/sage/assets/manifest.json" />
         <option value="$PROJECT_DIR$/site/web/app/themes/sage/templates/head.php" />
-        <option value="$PROJECT_DIR$/site/web/app/themes/sage/assets/styles/layouts/_search-panel.scss" />
         <option value="$PROJECT_DIR$/site/web/app/themes/sage/assets/styles/layouts/_sidebar.scss" />
-        <option value="$PROJECT_DIR$/site/web/app/themes/sage/assets/scripts/practice-search.js" />
         <option value="$PROJECT_DIR$/site/web/app/themes/sage/assets/styles/layouts/_pages.scss" />
         <option value="$PROJECT_DIR$/site/web/app/themes/sage/template-medical-practice.php" />
+        <option value="$PROJECT_DIR$/site/web/app/themes/sage/assets/scripts/practice-search.js" />
+        <option value="$PROJECT_DIR$/site/web/app/themes/sage/assets/styles/layouts/_search-panel.scss" />
       </list>
     </option>
   </component>
@@ -740,7 +749,7 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2578125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.050485436" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291262" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1133,11 +1142,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/assets/styles/layouts/_search-panel.scss">
+    <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/template-medical-practice.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39432177">
-          <caret line="99" column="20" selection-start-line="99" selection-start-column="20" selection-end-line="99" selection-end-column="20" />
-          <folding />
+        <state vertical-scroll-proportion="-2.5">
+          <caret line="4" column="2" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+          <folding>
+            <element signature="e#6#57#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1149,23 +1160,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/template-medical-practice.php">
+    <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/assets/styles/layouts/_search-panel.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.5">
-          <caret line="4" column="2" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
-          <folding>
-            <element signature="e#6#57#0#PHP" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-28.75">
+          <caret line="142" column="8" selection-start-line="142" selection-start-column="10" selection-end-line="149" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/site/web/app/themes/sage/assets/scripts/practice-search.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2994012">
-          <caret line="34" column="39" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.44210526">
+          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
           <folding>
-            <marker date="1464796114000" expanded="true" signature="3654:4222" placeholder="..." />
-            <marker date="1464796114000" expanded="true" signature="3825:4222" placeholder="..." />
+            <marker date="1464804098000" expanded="true" signature="3785:4353" placeholder="..." />
+            <marker date="1464804098000" expanded="true" signature="3956:4353" placeholder="..." />
           </folding>
         </state>
       </provider>
