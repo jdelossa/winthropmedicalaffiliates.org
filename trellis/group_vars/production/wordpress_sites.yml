@@ -7,7 +7,7 @@ wordpress_sites:
     site_hosts:
       - 107.170.67.239
     local_path: ../site # path targeting local Bedrock site directory (relative to Ansible root)
-    repo: github.com/jdelossa/winthropmedicalaffiliates.org # replace with your Git repo URL
+    repo: git@github.com:jdelossa/winthropmedicalaffiliates.org.git # replace with your Git repo URL
     repo_subtree_path: site # relative path to your Bedrock/WP directory in your repo
     branch: master
     multisite:
@@ -17,3 +17,4 @@ wordpress_sites:
       provider: letsencrypt
     cache:
       enabled: true
+
