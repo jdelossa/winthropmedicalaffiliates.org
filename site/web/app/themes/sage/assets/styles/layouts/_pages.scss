@@ -1,4 +1,4 @@
-.singular {
+.page-template {
   .site-map {
     list-style: none;
     padding-left: 0;
@@ -93,14 +93,14 @@
     }
   }
 }
-.home {
+.home, .page-template-template-medical-practice {
   .page-header {
     display: none;
   }
 }
-.winthrop-medical-practice {
+.page-template-template-medical-practice {
   #map {
-    height: 200px;
+    height: 250px;
     width: 100%;
     background-color: $light-gray;
   }
@@ -163,6 +163,7 @@
 @media (max-width: 1200px) {
   .privacy-policy, .privacy-policy-espanol {
     .affix-sidebar {
+      margin-top: -20px !important;
       width: 28%;
     }
   }
@@ -172,6 +173,17 @@
   .blog {
     .posts article {
       margin-bottom: 30px;
+    }
+  }
+}
+
+@media (max-height: 840px){
+  .privacy-policy, .privacy-policy-espanol {
+    .affix-sidebar {
+      margin-top: 200px;
+      h4, p, a {
+        font-size: 12px;
+      }
     }
   }
 }

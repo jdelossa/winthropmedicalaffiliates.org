@@ -21,7 +21,7 @@
     <div class="separator line-separator"></div>
     <div class="featured-practice">
       <div class="col-sm-9">
-        <a class="header" href="<?= types_render_field("medical-practice-link", array('raw' => 'true')); ?>"><?= types_render_field("medical-practice-name", array('raw' => 'true')); ?></a>
+        <a class="header" href="/<?= types_render_field("medical-practice-link", array('raw' => 'true')); ?>"><?= types_render_field("medical-practice-name", array('raw' => 'true')); ?></a>
         <p class="medical-practice-address"><?= types_render_field("medical-practice-address", array('raw' => 'true')); ?></p><br>
       </div>
       <div class="col-sm-3">
