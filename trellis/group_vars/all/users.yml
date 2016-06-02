@@ -10,7 +10,7 @@ users:
       - "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
       - https://github.com/swalkinshaw.keys
       - https://github.com/retlehs.keys
-  - name: "{{ admin_user }}"
+  - name: "{{ jdelossa }}"
     groups:
       - sudo
     keys:
