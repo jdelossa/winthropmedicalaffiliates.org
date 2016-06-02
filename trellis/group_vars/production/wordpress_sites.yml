@@ -5,13 +5,13 @@
 wordpress_sites:
   roots-example-project.com:
     site_hosts:
-      - 107.170.67.239
+      - 107.170.72.149
     local_path: ../site # path targeting local Bedrock site directory (relative to Ansible root)
     repo: git@github.com:jdelossa/winthropmedicalaffiliates.org.git # replace with your Git repo URL
     repo_subtree_path: site # relative path to your Bedrock/WP directory in your repo
     branch: master
     multisite:
-      enabled: false
+      enabled: true
     ssl:
       enabled: true
       provider: letsencrypt
